@@ -1687,7 +1687,7 @@ function trView(n){
   if(n===0){
     cM=null;cU=null;cI=0;
     $('tr-bg').style.background='linear-gradient(160deg,#0f1923,#1a2a3e)';
-    $('abar').classList.remove('vis');
+    var ab=$('abar');if(ab)ab.classList.remove('vis');
     try{$('au').pause()}catch(e){}
   }
 }
@@ -1735,7 +1735,7 @@ function trPrep(i){
   }
   $('pc').innerHTML=h;
 }
-function trGo(){cI=0;trView(3);$('abar').classList.add('vis');try{$('au').currentTime=0;$('au').play().catch(function(){})}catch(e){}showE();}
+function trGo(){cI=0;trView(3);var ab=$('abar');if(ab)ab.classList.add('vis');try{$('au').currentTime=0;$('au').play().catch(function(){})}catch(e){}showE();}
 function isSided(e){var r=e.rp.toLowerCase();return r.indexOf('je seite')>=0||r.indexOf('je richtung')>=0||r.indexOf('je arm')>=0||r.indexOf('je bein')>=0;}
 function showE(){
   var d=D[cM],u=d.units[cU],e=u.ex[cI],t=u.ex.length,c=d.c;
