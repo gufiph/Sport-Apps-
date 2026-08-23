@@ -384,7 +384,7 @@ body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,sans-serif;background
 <!-- V2 Bottom Tabs -->
 <div id="v2-tabs" class="tabs" style="display:flex">
   <button class="tab" id="tab-home" onclick="switchV2('home')">🏠<span>Start</span></button>
-  <button class="tab" id="tab-bandscheiben" onclick="switchV2('bandscheiben')">🏊<span>Training</span></button>
+  <button class="tab" id="tab-train" onclick="switchV2('train')">💪<span>Training</span></button>
   <button class="tab" id="tab-essen" onclick="switchV2('essen')">🍽️<span>Essen</span></button>
   <button class="tab" id="tab-cfg" onclick="switchV2('cfg')">⚙️<span>Setup</span></button>
 </div>
@@ -1090,10 +1090,12 @@ function render(){
   let content="";
   if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
   if(state.page==="home")content=renderHome(wi,ct);
+  else if(state.page==="train")content=renderTrain(wi);
   else if(state.page==="essen")content=renderEssen();
   else if(state.page==="cfg")content=renderCfg();
   let pageTitle="";
   if(state.page==="home")pageTitle="Sport Apps";
+  else if(state.page==="train")pageTitle="Training";
   else if(state.page==="essen")pageTitle="Essen & Rezepte";
   else if(state.page==="cfg")pageTitle="Setup";
   app.innerHTML=`<div class="hdr"><span class="logo" style="font-size:13px">🏠 ${pageTitle}</span><span style="font-size:9px;color:#64748b">${state.config?("W"+wi.week+" · "+ct.kcal+"kcal"):""}</span></div><div class="main">${content}</div>`;
