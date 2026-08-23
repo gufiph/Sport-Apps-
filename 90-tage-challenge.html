@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="90TC">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="90 Tage Challenge - Training, Ernährung & Tracking">
+<title>90 Tage Challenge</title>
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIjkwIFRhZ2UgQ2hhbGxlbmdlIiwKICAic2hvcnRfbmFtZSI6ICI5MFRDIiwKICAiZGVzY3JpcHRpb24iOiAiVHJhaW5pbmcsIEVybsOkaHJ1bmcgJiBUcmFja2luZyIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBmMTcyYSIsCiAgInRoZW1lX2NvbG9yIjogIiMwZjE3MmEiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogW3sKICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PHJlY3Qgd2lkdGg9JzEwMCcgaGVpZ2h0PScxMDAnIHJ4PScyMCcgZmlsbD0nJTIzMGYxNzJhJy8+PHRleHQgeD0nNTAnIHk9JzQyJyBmb250LXNpemU9JzI0JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSclMjM2MzY2ZjEnIGZvbnQtd2VpZ2h0PSc4MDAnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz45MFRDPC90ZXh0Pjx0ZXh0IHg9JzUwJyB5PSc2NScgZm9udC1zaXplPScyMCcgdGV4dC1hbmNob3I9J21pZGRsZSc+8J+SqjwvdGV4dD48L3N2Zz4iLAogICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAic2l6ZXMiOiAiYW55IgogIH1dCn0=">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='42' font-size='24' text-anchor='middle' fill='%236366f1' font-weight='800' font-family='sans-serif'>90TC</text><text x='50' y='65' font-size='20' text-anchor='middle'>💪</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0f172a;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+input[type=number]{-moz-appearance:textfield;}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.hdr{background:#0f172a;border-bottom:1px solid #1e293b;padding:9px 14px;position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-size:14px;font-weight:800;}
+.main{padding:10px 14px 76px;}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#0f172a;border-top:1px solid #1e293b;display:flex;padding:5px 0 16px;z-index:50;}
+.tab{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;color:#475569;font-size:17px;}
+.tab.active{color:#6366f1;}
+.tab span{font-size:8px;font-weight:400;}
+.tab.active span{font-weight:700;}
+.card{background:#1e293b;border-radius:10px;padding:10px;margin-bottom:8px;}
+.date-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.nav-btn{background:#1e293b;border:none;color:#e2e8f0;border-radius:8px;padding:6px 12px;font-size:18px;cursor:pointer;}
+.score-card{border-radius:12px;padding:12px;margin-bottom:10px;text-align:center;}
+.rings{display:flex;justify-content:space-around;margin-bottom:10px;}
+.ring-wrap{display:flex;flex-direction:column;align-items:center;}
+.ring-val{margin-top:-35px;margin-bottom:22px;text-align:center;font-size:11px;font-weight:700;}
+.ring-lbl{font-size:9px;color:#64748b;margin-top:1px;}
+.section-hdr{font-size:10px;font-weight:700;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;}
+.num-row{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:#1e293b;border-radius:8px;margin-bottom:4px;font-size:12px;color:#cbd5e1;}
+.num-ctrl{display:flex;align-items:center;gap:4px;}
+.num-ctrl button{width:26px;height:26px;border-radius:6px;background:#334155;border:none;color:#e2e8f0;font-size:15px;cursor:pointer;}
+.unit{font-size:10px;color:#475569;width:18px;}
+.toggle-btn{flex:1;padding:9px;border-radius:9px;border:none;cursor:pointer;font-weight:600;font-size:11px;background:#1e293b;color:#64748b;}
+.toggle-btn.on{background:#065f46;color:#6ee7b7;}
+.meal-mini{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#0f172a;border-radius:8px;margin-bottom:3px;cursor:pointer;}
+.meal-card{background:#1e293b;border-radius:10px;padding:10px;margin-bottom:6px;cursor:pointer;}
+.meal-em{font-size:28px;width:44px;height:44px;background:#0f172a;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.macros-sm{display:flex;gap:6px;margin-top:2px;font-size:9px;}
+.totals-bar{background:#0f172a;border-radius:10px;padding:10px;display:flex;justify-content:space-around;margin-top:4px;}
+.tot-val{font-size:15px;font-weight:800;text-align:center;}
+.tot-lbl{font-size:8px;color:#64748b;text-align:center;}
+.day-tab{flex:1;padding:8px 0;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:12px;background:#1e293b;color:#475569;border-bottom:2px solid transparent;}
+.day-tab.active{background:color-mix(in srgb,var(--c) 15%,transparent);color:var(--c);border-bottom-color:var(--c);}
+.ex-card{background:#1e293b;border-radius:10px;padding:10px;margin-bottom:7px;}
+.set-btn{width:32px;height:32px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:#0f172a;color:#475569;}
+.set-btn.done{background:#065f46;color:#6ee7b7;}
+.essen-tab{flex:1;padding:7px 0;border-radius:7px;border:none;cursor:pointer;font-size:10px;font-weight:600;background:#1e293b;color:#475569;}
+.essen-tab.active{background:#6366f122;color:#6366f1;}
+.shop-tab{flex:1;padding:8px 0;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:600;background:#1e293b;color:#475569;}
+.shop-tab.active{background:#6366f122;color:#6366f1;}
+.shop-item{display:flex;justify-content:space-between;padding:5px 10px;background:#1e293b;border-radius:7px;margin-bottom:2px;font-size:12px;}
+.week-slot{flex:1;background:#0f172a;border-radius:7px;padding:6px;text-align:center;cursor:pointer;}
+.btn-fill{flex:1;padding:9px 0;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:#065f46;color:#6ee7b7;}
+.btn-clear{flex:1;padding:9px 0;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:#1e293b;color:#f43f5e;}
+.btn-primary{width:100%;padding:14px;background:#6366f1;border:none;border-radius:10px;color:white;font-size:16px;font-weight:700;cursor:pointer;}
+.btn-reset{width:100%;padding:7px;background:none;border:1px solid #334155;border-radius:7px;color:#475569;font-size:10px;cursor:pointer;}
+.recipe-card{background:#1e293b;border-radius:10px;padding:10px;margin-bottom:5px;}
+.picker-hdr{padding:12px 14px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#0f172a;z-index:50;}
+.pick-card{background:#1e293b;border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer;border:1px solid transparent;}
+.pick-card.sel{background:#1e3a5f;border-color:#3b82f6;}
+.stat-card{background:#1e293b;border-radius:10px;padding:10px;text-align:center;}
+.recipe-link{display:inline-block;font-size:9px;color:#818cf8;text-decoration:none;margin-left:6px;opacity:0.7;}
+.recipe-link:hover{opacity:1;}
+.yazio-box{display:flex;gap:1px;margin-top:4px;background:#0f172a;border-radius:6px;overflow:hidden;font-size:10px;}
+.yazio-box div{flex:1;padding:4px 2px;text-align:center;}
+.yazio-box .yz-label{font-size:7px;color:#64748b;display:block;}
+.btn-print{padding:8px 12px;border-radius:8px;border:none;cursor:pointer;font-size:11px;font-weight:600;background:#1e293b;color:#818cf8;}
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:12px!important;}
+  .hdr,.tabs,.nav-btn,.btn-print,.btn-fill,.btn-clear,.toggle-btn,.num-row,.num-ctrl,.score-card,.rings,.essen-tab,.shop-tab,.date-nav,.section-hdr{display:none!important;}
+  .main{padding:0!important;}
+  .card,.meal-card,.recipe-card,.pick-card,.ex-card{background:#f5f5f5!important;border:1px solid #ddd!important;color:#000!important;break-inside:avoid;margin-bottom:8px!important;}
+  .meal-em{background:#eee!important;}
+  .macros-sm span,.tot-val,.ring-val{color:#000!important;}
+  #printArea{display:block!important;}
+  #app{display:none!important;}
+  @page{margin:10mm;}
+}
+#printArea{display:none;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="printArea"></div>
+<script>
+// ═══════════════ DATA ═══════════════
+const R={
+f:[
+{id:"f1",n:"Skyr-Power-Bowl",em:"💫",k:490,p:50,f:8,c:55,items:[[200,"g","Skyr"],[60,"g","Haferflocken"],[30,"g","Whey Protein"],[50,"g","Beeren (TK)"],[1,"TL","Honig"]],prep:"Abends mischen, morgens Beeren+Honig drauf",tip:"5 Gläser am Sonntag vorbereiten"},
+{id:"f2",n:"Quark-Oats",em:"🥣",k:480,p:45,f:9,c:58,items:[[250,"g","Magerquark"],[60,"g","Haferflocken"],[1,"Stk","Banane"],[10,"g","Mandeln"]],prep:"Quark+Oats+Banane mixen, Mandeln drauf",tip:"Overnight vorbereiten möglich"},
+{id:"f3",n:"Protein-Pancakes",em:"🥞",k:510,p:48,f:10,c:55,items:[[150,"g","Skyr"],[2,"Stk","Eier"],[50,"g","Haferflocken"],[30,"g","Whey Protein"],[1,"Stk","Banane"]],prep:"Alles mixen, in Pfanne braten",tip:"Batch am Sonntag, 5 Tage haltbar"},
+{id:"f4",n:"Overnight Oats",em:"🌙",k:470,p:42,f:7,c:62,items:[[200,"g","Skyr"],[60,"g","Haferflocken"],[30,"g","Whey Protein"],[150,"ml","Milch 1,5%"],[50,"g","Beeren (TK)"]],prep:"In Glas schichten, über Nacht kühlen",tip:"5 Gläser am Sonntag"},
+{id:"f5",n:"Rührei-Brot",em:"🍳",k:500,p:38,f:18,c:42,items:[[4,"Stk","Eier"],[50,"g","Schinken"],[2,"Scheiben","Vollkornbrot"],[100,"g","Tomaten"]],prep:"Eier mit Schinken verquirlen, braten",tip:"Frisch zubereiten"},
+{id:"f6",n:"Quark-Shake",em:"🥤",k:460,p:52,f:6,c:50,items:[[250,"g","Magerquark"],[1,"Stk","Banane"],[30,"g","Whey Protein"],[200,"ml","Milch 1,5%"],[30,"g","Haferflocken"]],prep:"Alles im Mixer pürieren",tip:"Schnellstes Frühstück — 2 Min"},
+{id:"f7",n:"Porridge Power",em:"🥜",k:490,p:40,f:12,c:60,items:[[80,"g","Haferflocken"],[30,"g","Whey Protein"],[200,"ml","Milch 1,5%"],[15,"g","Erdnussbutter"],[1,"Stk","Apfel"]],prep:"Haferflocken mit Milch kochen, Whey einrühren",tip:"Oats+Whey vorher mischen"},
+{id:"f8",n:"Joghurt-Müsli",em:"🍯",k:475,p:44,f:8,c:58,items:[[200,"g","Skyr"],[40,"g","Müsli ungez."],[30,"g","Whey Protein"],[100,"g","Beeren (TK)"],[1,"TL","Honig"]],prep:"Skyr+Whey mischen, Müsli+Beeren drauf",tip:"Müsli separat transportieren"},
+{id:"f9",n:"Eiweiß-Wrap",em:"🌯",k:485,p:42,f:14,c:45,items:[[3,"Stk","Eier"],[1,"Stk","Vollkorn-Wrap"],[50,"g","Putenbrust Aufschnitt"],[30,"g","Käse light"],[50,"g","Paprika"]],prep:"Eier als Omelette, auf Wrap rollen",tip:"Kalt vorbereiten, morgens erwärmen"},
+{id:"f10",n:"Quark-Auflauf süß",em:"🍮",k:495,p:46,f:9,c:56,items:[[300,"g","Magerquark"],[2,"Stk","Eier"],[50,"g","Haferflocken"],[1,"Stk","Banane"],[30,"g","Whey Protein"]],prep:"Alles mischen, 25 Min bei 180°C",tip:"Große Form, 5 Stücke teilen"},
+{id:"f11",n:"Baked Oats",em:"🍞",k:505,p:44,f:10,c:58,items:[[80,"g","Haferflocken"],[1,"Stk","Banane"],[1,"Stk","Eier"],[30,"g","Whey Protein"],[100,"ml","Milch 1,5%"],[50,"g","Beeren (TK)"]],prep:"Alles mixen, Auflaufform 20 Min bei 180°C",tip:"6 Portionen backen, einzeln einfrieren"},
+{id:"f12",n:"Topfenknödel",em:"🥟",k:510,p:42,f:12,c:60,items:[[250,"g","Magerquark"],[1,"Stk","Eier"],[60,"g","Grieß"],[30,"g","Butter"],[40,"g","Semmelbrösel"]],prep:"Quark+Ei+Grieß mischen, 30 Min rasten, Knödel formen, kochen",tip:"Österr. Klassiker, gut vorzubereiten"},
+{id:"f13",n:"Skyr-Smoothie-Bowl",em:"🍓",k:465,p:46,f:6,c:56,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[1,"Stk","Banane"],[100,"g","Beeren (TK)"],[20,"g","Haferflocken"],[10,"g","Chiasamen"]],prep:"Skyr+Whey+Banane+Beeren mixen, Toppings drauf",tip:"Beeren gefroren mixen für dicke Konsistenz"},
+{id:"f14",n:"Vollkornbrot Quark-Ei",em:"🥖",k:490,p:40,f:16,c:44,items:[[2,"Scheiben","Vollkornbrot"],[150,"g","Magerquark"],[2,"Stk","Eier"],[1,"Stk","Tomate"]],prep:"Eier kochen, Brot mit Quark, Ei+Tomate drauf",tip:"Eier Sonntag für die Woche vorkochen"},
+{id:"f15",n:"Haferflocken-Muffins",em:"🧁",k:480,p:42,f:10,c:54,items:[[100,"g","Haferflocken"],[200,"g","Magerquark"],[2,"Stk","Eier"],[30,"g","Whey Protein"],[1,"TL","Backpulver"],[1,"TL","Honig"]],prep:"Mischen, Muffinform 20 Min bei 180°C",tip:"12 Stück backen, 5 Tage haltbar"},
+{id:"f16",n:"Grießbrei Protein",em:"🍜",k:470,p:40,f:6,c:62,items:[[60,"g","Grieß"],[300,"ml","Milch 1,5%"],[30,"g","Whey Protein"],[1,"TL","Honig"],[50,"g","Beeren (TK)"]],prep:"Milch aufkochen, Grieß einrühren, Whey unter",tip:"Warm oder kalt genießbar"},
+{id:"f17",n:"Quark-Pfannkuchen",em:"🥞",k:500,p:48,f:12,c:48,items:[[200,"g","Magerquark"],[2,"Stk","Eier"],[40,"g","Mehl"],[30,"g","Whey Protein"],[1,"TL","Honig"]],prep:"Verrühren, kleine Pfannkuchen braten",tip:"Batch für 5 Tage, in Folie wickeln"},
+{id:"f18",n:"Cottage-Bowl",em:"🧀",k:455,p:38,f:10,c:52,items:[[200,"g","Hüttenkäse"],[60,"g","Haferflocken"],[1,"Stk","Banane"],[10,"g","Walnüsse"],[1,"TL","Honig"]],prep:"Alles in Schüssel schichten",tip:"Walnüsse für Omega-3"},
+{id:"f19",n:"Bircher Müsli",em:"🍏",k:485,p:40,f:10,c:60,items:[[200,"g","Skyr"],[50,"g","Haferflocken"],[1,"Stk","Apfel"],[30,"g","Whey Protein"],[100,"ml","Milch 1,5%"],[10,"g","Rosinen"]],prep:"Haferflocken+Milch+geriebener Apfel über Nacht, morgens Skyr+Whey",tip:"Schweizer Klassiker, 5 Gläser am Sonntag"},
+{id:"f20",n:"Protein-Kaiserschmarrn",em:"🥮",k:520,p:44,f:14,c:52,items:[[3,"Stk","Eier"],[40,"g","Mehl"],[30,"g","Whey Protein"],[100,"ml","Milch 1,5%"],[150,"g","Magerquark"],[10,"g","Rosinen"],[1,"TL","Butter"]],prep:"Teig aus Eier+Mehl+Whey+Milch, in Butter braten, zerreißen",tip:"Österreichischer Klassiker mit Protein-Boost"},
+{id:"f21",n:"Quark-Waffeln",em:"🧇",k:500,p:46,f:12,c:50,items:[[200,"g","Magerquark"],[2,"Stk","Eier"],[50,"g","Haferflocken"],[30,"g","Whey Protein"],[1,"TL","Backpulver"]],prep:"Alles mixen, im Waffeleisen backen",tip:"Batch von 10 Waffeln, einfrieren möglich"},
+{id:"f22",n:"Schinken-Käse-Omelette",em:"🧀",k:495,p:44,f:22,c:28,items:[[4,"Stk","Eier"],[60,"g","Schinken"],[30,"g","Käse light"],[100,"g","Tomaten"],[1,"Stk","Vollkornbrötchen"]],prep:"Eier verquirlen, Schinken+Käse einlegen, stocken lassen",tip:"Low-Carb wenn ohne Brötchen"},
+{id:"f23",n:"Skyr-Granola-Bowl",em:"🥣",k:470,p:42,f:10,c:54,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[40,"g","Granola"],[100,"g","Beeren (TK)"],[1,"TL","Honig"]],prep:"Skyr+Whey mischen, Granola+Beeren drauf",tip:"Granola knusprig halten: separat lagern"},
+{id:"f24",n:"Protein-Grießschnitten",em:"🍞",k:510,p:42,f:10,c:62,items:[[80,"g","Grieß"],[300,"ml","Milch 1,5%"],[30,"g","Whey Protein"],[1,"Stk","Eier"],[20,"g","Semmelbrösel"],[1,"TL","Butter"]],prep:"Grießbrei kochen+Whey, kalt stellen, in Scheiben braten",tip:"Vorbereiten, morgens nur anbraten"},
+{id:"f25",n:"Frühstücks-Burrito",em:"🌯",k:510,p:40,f:16,c:50,items:[[2,"Stk","Vollkorn-Wrap"],[3,"Stk","Eier"],[50,"g","Schinken"],[30,"g","Käse light"],[50,"g","Paprika"]],prep:"Rührei mit Schinken+Käse+Paprika, in Wraps rollen",tip:"5 Burritos vorbereiten, in Alufolie einfrieren"},
+{id:"f26",n:"Quark-Apfeltaschen",em:"🥐",k:475,p:38,f:10,c:58,items:[[200,"g","Magerquark"],[1,"Stk","Eier"],[80,"g","Mehl"],[1,"TL","Backpulver"],[2,"Stk","Apfel"],[1,"TL","Zimt"]],prep:"Teig aus Quark+Ei+Mehl, Äpfel einwickeln, im Ofen backen",tip:"10 Stück backen, 5 Tage haltbar"},
+{id:"f27",n:"Topfen-Palatschinken",em:"🥞",k:505,p:46,f:12,c:50,items:[[2,"Stk","Eier"],[60,"g","Mehl"],[100,"ml","Milch 1,5%"],[200,"g","Magerquark"],[30,"g","Whey Protein"],[1,"TL","Honig"]],prep:"Dünne Pfannkuchen backen, Quark-Whey-Füllung einrollen",tip:"Österr. Klassiker! 8 Stück, einfrierbar"},
+{id:"f28",n:"Ei im Glas",em:"🥚",k:470,p:36,f:18,c:36,items:[[3,"Stk","Eier"],[2,"Scheiben","Vollkornbrot"],[20,"g","Butter"],[1,"TL","Schnittlauch"]],prep:"Eier weichkochen, im Glas aufschlagen, Brot dazu",tip:"Wiener Frühstücks-Klassiker"},
+{id:"f29",n:"Skyr-Kokos-Bowl",em:"🥥",k:480,p:44,f:12,c:50,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[20,"g","Kokosraspeln"],[1,"Stk","Banane"],[40,"g","Haferflocken"]],prep:"Skyr+Whey mischen, Banane+Kokos+Oats drauf",tip:"Tropisches Feeling"},
+{id:"f30",n:"French Toast Protein",em:"🍞",k:510,p:44,f:14,c:52,items:[[3,"Scheiben","Vollkornbrot"],[2,"Stk","Eier"],[30,"g","Whey Protein"],[50,"ml","Milch 1,5%"],[100,"g","Skyr"],[100,"g","Beeren (TK)"]],prep:"Eier+Whey+Milch verquirlen, Brot eintauchen, braten",tip:"Skyr+Beeren als Topping"},
+{id:"f31",n:"Käse-Ei-Muffins",em:"🧁",k:460,p:40,f:20,c:24,items:[[6,"Stk","Eier"],[50,"g","Schinken"],[40,"g","Käse light"],[50,"g","Paprika"],[50,"g","Champignons"]],prep:"Alles würfeln, Eier verquirlen, in Muffinform 20 Min backen",tip:"12 Stück, perfekt für Meal Prep, Low-Carb"},
+{id:"f32",n:"Haferbrei Apfel-Zimt",em:"🍎",k:475,p:38,f:8,c:64,items:[[80,"g","Haferflocken"],[250,"ml","Milch 1,5%"],[30,"g","Whey Protein"],[1,"Stk","Apfel"],[1,"TL","Zimt"],[1,"TL","Honig"]],prep:"Oats in Milch kochen, Whey einrühren, Apfelstücke+Zimt",tip:"Winter-Frühstück, warm und sättigend"},
+{id:"f33",n:"Protein-Müsliriegel",em:"🍫",k:490,p:36,f:14,c:56,items:[[100,"g","Haferflocken"],[40,"g","Whey Protein"],[30,"g","Erdnussbutter"],[40,"g","Honig"],[50,"ml","Milch 1,5%"],[20,"g","Rosinen"]],prep:"Alles mischen, in Form pressen, 20 Min backen, schneiden",tip:"12 Riegel, 7 Tage haltbar"},
+{id:"f34",n:"Quark-Hörnchen",em:"🥐",k:485,p:40,f:10,c:58,items:[[250,"g","Magerquark"],[1,"Stk","Eier"],[120,"g","Mehl"],[1,"TL","Backpulver"],[30,"g","Whey Protein"],[5,"ml","Öl"]],prep:"Teig kneten, Hörnchen formen, 20 Min bei 180°C",tip:"Herzhafte oder süße Variante möglich"},
+{id:"f35",n:"Avocado-Ei-Brot",em:"🥑",k:510,p:30,f:24,c:42,items:[[2,"Scheiben","Vollkornbrot"],[1,"Stk","Avocado"],[2,"Stk","Eier"],[1,"Stk","Tomate"],[1,"Prise","Chili"]],prep:"Avocado zerdrücken, auf Toast, Spiegelei drauf",tip:"Gute Fette aus Avocado"},
+],
+m:[
+{id:"m1",n:"Hähnchen-Reis-Bowl",em:"🍗",k:650,p:52,f:12,c:75,items:[[200,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[200,"g","Brokkoli"],[10,"ml","Olivenöl"]],prep:"Hähnchen braten, Reis kochen, Brokkoli dünsten",tip:"Meal-Prep-Klassiker in Boxen"},
+{id:"m2",n:"Puten-Süßkartoffel",em:"🍠",k:630,p:50,f:10,c:78,items:[[200,"g","Putenbrust"],[250,"g","Süßkartoffel"],[200,"g","Paprika"],[5,"ml","Olivenöl"]],prep:"Alles würfeln, Blech 25 Min bei 200°C",tip:"Perfektes Ofenblech-Prep"},
+{id:"m3",n:"Chili con Carne",em:"🌶️",k:620,p:48,f:14,c:65,items:[[200,"g","Rinderhack mager"],[150,"g","Kidneybohnen"],[200,"g","Tomaten passiert"],[60,"g","Reis Basmati"],[1,"Stk","Zwiebel"],[1,"Stk","Paprika"]],prep:"Großen Topf kochen, Reis separat",tip:"5 Portionen auf einmal"},
+{id:"m4",n:"Lachs-Bowl",em:"🐟",k:660,p:48,f:18,c:68,items:[[150,"g","Lachsfilet"],[80,"g","Reis Basmati"],[200,"g","Zucchini"],[15,"ml","Sojasoße"],[5,"g","Sesam"]],prep:"Lachs im Ofen, Reis kochen, Zucchini braten",tip:"Lachs hält 3 Tage"},
+{id:"m5",n:"Hähnchen-Curry",em:"🍛",k:640,p:50,f:12,c:72,items:[[200,"g","Hähnchenbrust"],[100,"ml","Kokosmilch light"],[200,"g","Gemüse-Mix TK"],[80,"g","Reis Basmati"],[1,"EL","Currypaste"]],prep:"Hähnchen anbraten, Kokosmilch+Paste+Gemüse",tip:"5 Portionen, Reis separat"},
+{id:"m6",n:"Putenbolognese",em:"🍝",k:650,p:52,f:11,c:74,items:[[200,"g","Putenhack"],[80,"g","Vollkornnudeln"],[200,"g","Tomaten passiert"],[1,"Stk","Zwiebel"],[2,"Zehen","Knoblauch"]],prep:"Soße im großen Topf, Nudeln separat",tip:"Soße 5 Tage haltbar"},
+{id:"m7",n:"Hähnchen-Wraps",em:"🌯",k:620,p:48,f:14,c:62,items:[[200,"g","Hähnchenbrust"],[2,"Stk","Vollkorn-Wrap"],[100,"g","Salat-Mix"],[50,"g","Magerquark"],[1,"Stk","Tomate"]],prep:"Hähnchen in Streifen braten, Wrap rollen",tip:"Hähnchen vorkochen, Wraps frisch"},
+{id:"m8",n:"Rindfleisch-Gemüse",em:"🥩",k:640,p:52,f:16,c:58,items:[[180,"g","Rindfleisch mager"],[200,"g","Paprika"],[200,"g","Zucchini"],[150,"g","Kartoffeln"],[5,"ml","Olivenöl"]],prep:"Rindfleisch in Streifen braten, Gemüse dazu",tip:"Kartoffeln vorkochen"},
+{id:"m9",n:"Puten-Quinoa-Bowl",em:"🥗",k:610,p:50,f:12,c:66,items:[[200,"g","Putenbrust"],[70,"g","Quinoa"],[100,"g","Gurke"],[100,"g","Tomaten"],[5,"ml","Olivenöl"]],prep:"Quinoa kochen, Pute braten, Bowl anrichten",tip:"Quinoa und Pute zusammen preppen"},
+{id:"m10",n:"Kartoffel-Hähnchen",em:"🥔",k:630,p:48,f:10,c:76,items:[[200,"g","Hähnchenbrust"],[300,"g","Kartoffeln"],[200,"g","Grüne Bohnen"],[5,"ml","Olivenöl"]],prep:"Alles auf Blech bei 200°C, 30 Min",tip:"Bestes Ofenblech-Meal-Prep"},
+{id:"m11",n:"Puten-Reispfanne",em:"🍚",k:635,p:50,f:10,c:74,items:[[200,"g","Putenbrust"],[80,"g","Reis Basmati"],[150,"g","Erbsen TK"],[100,"g","Möhren"],[15,"ml","Sojasoße"]],prep:"Alles kochen, in Pfanne schwenken",tip:"Reis vom Vortag am besten"},
+{id:"m12",n:"Hackfleisch-Bowl",em:"🥘",k:645,p:50,f:14,c:68,items:[[200,"g","Rinderhack mager"],[80,"g","Reis Basmati"],[150,"g","Mais"],[100,"g","Tomaten"],[50,"g","Kidneybohnen"]],prep:"Hack braten, würzen, Reis+Toppings",tip:"Mexikanisch würzen"},
+{id:"m13",n:"Gefüllte Paprika",em:"🫑",k:620,p:48,f:14,c:62,items:[[3,"Stk","Paprika"],[200,"g","Rinderhack mager"],[60,"g","Reis Basmati"],[200,"g","Tomaten passiert"],[1,"Stk","Zwiebel"],[30,"g","Käse light"]],prep:"Paprika aushöhlen, Hack-Reis-Füllung, 30 Min Ofen",tip:"6 Stück auf einmal"},
+{id:"m14",n:"Hähnchen-Couscous",em:"🍛",k:630,p:50,f:10,c:74,items:[[200,"g","Hähnchenbrust"],[80,"g","Couscous"],[200,"g","Zucchini"],[100,"g","Tomaten"],[5,"ml","Olivenöl"]],prep:"Couscous mit heißem Wasser, Hähnchen braten",tip:"Couscous = schnellste Beilage"},
+{id:"m15",n:"Linsen-Dal",em:"🥣",k:590,p:38,f:8,c:82,items:[[150,"g","Rote Linsen"],[200,"g","Tomaten passiert"],[100,"ml","Kokosmilch light"],[80,"g","Reis Basmati"],[1,"TL","Currypulver"],[1,"Stk","Zwiebel"]],prep:"Linsen+Tomaten+Kokosmilch köcheln, Reis separat",tip:"Vegan+günstig, 5 Portionen"},
+{id:"m16",n:"Puten-Gyros Teller",em:"🍖",k:650,p:52,f:14,c:66,items:[[200,"g","Putenbrust"],[150,"g","Kartoffeln"],[100,"g","Krautsalat"],[50,"g","Magerquark"],[1,"TL","Gyros-Gewürz"]],prep:"Pute mit Gyros-Gewürz braten, Quark-Dip",tip:"Krautsalat hält 5 Tage"},
+{id:"m17",n:"Hähnchen-Kartoffelsuppe",em:"🥘",k:580,p:46,f:10,c:68,items:[[200,"g","Hähnchenbrust"],[300,"g","Kartoffeln"],[100,"g","Möhren"],[1,"Stk","Zwiebel"],[500,"ml","Brühe"]],prep:"Alles würfeln, in Brühe kochen",tip:"Großer Topf, 5 Portionen einfrieren"},
+{id:"m18",n:"Gebratener Reis mit Ei",em:"🍳",k:600,p:36,f:16,c:72,items:[[80,"g","Reis Basmati"],[3,"Stk","Eier"],[200,"g","Gemüse-Mix TK"],[15,"ml","Sojasoße"]],prep:"Reis vom Vortag, Gemüse+Ei anbraten",tip:"Perfekte Resteverwertung"},
+{id:"m19",n:"Putenschnitzel+Salat",em:"🥗",k:560,p:50,f:12,c:54,items:[[200,"g","Putenbrust"],[30,"g","Semmelbrösel"],[1,"Stk","Eier"],[200,"g","Salat-Mix"],[150,"g","Kartoffeln"]],prep:"Pute panieren, braten, Erdäpfelsalat",tip:"Österreichisch! Pute kalt auch gut"},
+{id:"m20",n:"Lachs-Nudel-Auflauf",em:"🍝",k:660,p:48,f:18,c:70,items:[[150,"g","Lachsfilet"],[100,"g","Vollkornnudeln"],[200,"g","Brokkoli"],[100,"ml","Milch 1,5%"],[30,"g","Käse light"]],prep:"Nudeln+Brokkoli vorkochen, Lachs würfeln, 25 Min Ofen",tip:"Große Form, 4 Portionen"},
+{id:"m21",n:"Kartoffelgulasch+Pute",em:"🥘",k:610,p:48,f:10,c:72,items:[[200,"g","Putenbrust"],[300,"g","Kartoffeln"],[1,"Stk","Zwiebel"],[200,"g","Tomaten passiert"],[1,"TL","Paprikapulver"]],prep:"Zwiebel anbraten, Kartoffeln+Paprika+Tomaten, Pute dazu",tip:"Österreichisch! Großer Topf, 5 Portionen"},
+{id:"m22",n:"Hähnchen-Brokkoli-Auflauf",em:"🥦",k:640,p:52,f:14,c:60,items:[[200,"g","Hähnchenbrust"],[300,"g","Brokkoli"],[100,"ml","Milch 1,5%"],[30,"g","Käse light"],[2,"Stk","Eier"]],prep:"Hähnchen+Brokkoli in Form, Eier-Milch-Käse drüber, 25 Min Ofen",tip:"4 Portionen, Low-Carb"},
+{id:"m23",n:"Reisfleisch",em:"🍚",k:650,p:50,f:12,c:74,items:[[200,"g","Putenbrust"],[100,"g","Reis Basmati"],[200,"g","Paprika"],[200,"g","Tomaten passiert"],[1,"Stk","Zwiebel"],[1,"TL","Paprikapulver"]],prep:"Pute anbraten, Reis+Tomaten+Paprika dazu, köcheln",tip:"Österreichischer Klassiker, One-Pot"},
+{id:"m24",n:"Bohnen-Hack-Topf",em:"🫘",k:620,p:46,f:12,c:68,items:[[200,"g","Rinderhack mager"],[200,"g","Weiße Bohnen"],[200,"g","Tomaten passiert"],[100,"g","Möhren"],[1,"Stk","Zwiebel"]],prep:"Hack braten, Bohnen+Tomaten+Möhren dazu, 20 Min köcheln",tip:"Eiweißbombe, günstig, 5 Portionen"},
+{id:"m25",n:"Hähnchen-Tortilla-Bowl",em:"🌮",k:630,p:50,f:14,c:62,items:[[200,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[100,"g","Mais"],[100,"g","Kidneybohnen"],[50,"g","Magerquark"],[1,"Stk","Paprika"]],prep:"Hähnchen mit Gewürzen braten, Reis+Toppings",tip:"Tex-Mex Style, Quark statt Sour Cream"},
+{id:"m26",n:"Puten-Gemüsesuppe",em:"🍲",k:520,p:44,f:8,c:62,items:[[200,"g","Putenbrust"],[200,"g","Kartoffeln"],[100,"g","Möhren"],[100,"g","Zucchini"],[500,"ml","Brühe"],[50,"g","Nudeln"]],prep:"Alles in Brühe kochen, Nudeln am Ende dazu",tip:"Großer Topf, einfrierbar"},
+{id:"m27",n:"Eierspätzle mit Salat",em:"🥚",k:600,p:36,f:16,c:70,items:[[200,"g","Spätzle"],[4,"Stk","Eier"],[1,"Stk","Zwiebel"],[200,"g","Salat-Mix"],[10,"ml","Olivenöl"]],prep:"Spätzle mit Ei und Zwiebel in Pfanne schwenken, Salat dazu",tip:"Schwäbisch-österreichisch, schnell gemacht"},
+{id:"m28",n:"Hähnchen-Feta-Pfanne",em:"🧀",k:620,p:50,f:16,c:54,items:[[200,"g","Hähnchenbrust"],[200,"g","Paprika"],[200,"g","Zucchini"],[30,"g","Feta"],[200,"g","Tomaten passiert"]],prep:"Hähnchen+Gemüse anbraten, Tomaten+Feta dazu, köcheln",tip:"Mediterranean Style, Low-Carb Option ohne Beilage"},
+{id:"m29",n:"Geschnetzeltes Zürcher Art",em:"🍗",k:640,p:52,f:14,c:62,items:[[200,"g","Putenbrust"],[200,"g","Champignons"],[100,"ml","Milch 1,5%"],[80,"g","Reis Basmati"],[1,"Stk","Zwiebel"],[5,"ml","Öl"]],prep:"Pute+Champignons+Zwiebel braten, Milch dazu, Reis separat",tip:"Leichte Version ohne Sahne"},
+{id:"m30",n:"Hähnchen-Nudelsalat",em:"🥗",k:620,p:48,f:12,c:66,items:[[200,"g","Hähnchenbrust"],[100,"g","Vollkornnudeln"],[100,"g","Paprika"],[100,"g","Gurke"],[50,"g","Magerquark"],[1,"TL","Senf"]],prep:"Nudeln+Hähnchen kochen, kalt mit Gemüse+Quark-Dressing mischen",tip:"Perfekt zum Mitnehmen, 3 Tage haltbar"},
+{id:"m31",n:"Puten-Laibchen",em:"🍖",k:610,p:50,f:14,c:58,items:[[250,"g","Putenhack"],[1,"Stk","Eier"],[30,"g","Semmelbrösel"],[150,"g","Kartoffeln"],[200,"g","Salat-Mix"],[1,"Stk","Zwiebel"]],prep:"Hack+Ei+Brösel+Zwiebel mischen, Laibchen braten, Kartoffel+Salat",tip:"Österreichisch! 8 Laibchen = 4 Portionen"},
+{id:"m32",n:"Gemüse-Frittata",em:"🥚",k:560,p:40,f:18,c:42,items:[[5,"Stk","Eier"],[200,"g","Zucchini"],[200,"g","Paprika"],[100,"g","Champignons"],[30,"g","Käse light"],[150,"g","Kartoffeln"]],prep:"Gemüse anbraten, Eier drüber, Käse, im Ofen fertig backen",tip:"Große Pfanne, 4 Stücke schneiden"},
+{id:"m33",n:"Asia-Nudelpfanne Pute",em:"🍜",k:630,p:48,f:10,c:76,items:[[200,"g","Putenbrust"],[150,"g","Vollkornnudeln"],[200,"g","Gemüse-Mix TK"],[15,"ml","Sojasoße"],[1,"TL","Ingwer"],[5,"g","Sesam"]],prep:"Nudeln kochen, Pute+Gemüse im Wok braten, Sojasoße+Ingwer",tip:"Asiatisch inspiriert, schnell gemacht"},
+{id:"m34",n:"Hühnerfrikassee",em:"🍗",k:600,p:48,f:10,c:68,items:[[200,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[150,"g","Erbsen TK"],[100,"g","Möhren"],[200,"ml","Brühe"],[1,"EL","Mehl"]],prep:"Hähnchen in Brühe kochen, Gemüse+Mehl-Bindung, Reis separat",tip:"Oma-Rezept, Comfort Food"},
+{id:"m35",n:"Wrap-Bowl Hähnchen",em:"🥗",k:610,p:50,f:14,c:56,items:[[200,"g","Hähnchenbrust"],[1,"Stk","Vollkorn-Wrap"],[100,"g","Salat-Mix"],[100,"g","Mais"],[50,"g","Magerquark"],[1,"Stk","Tomate"]],prep:"Hähnchen braten, Wrap in Stücke, alles als Bowl anrichten",tip:"Deconstructed Wrap — sieht cool aus"},
+{id:"m36",n:"Kürbis-Puten-Pfanne",em:"🎃",k:590,p:48,f:10,c:68,items:[[200,"g","Putenbrust"],[250,"g","Kürbis"],[80,"g","Reis Basmati"],[1,"Stk","Zwiebel"],[5,"ml","Olivenöl"],[1,"TL","Currypulver"]],prep:"Kürbis würfeln, mit Pute braten, Curry dazu, Reis separat",tip:"Herbst-Rezept, Hokkaido-Kürbis mit Schale essbar"},
+{id:"m37",n:"Thunfisch-Alternat. Bowl",em:"🥗",k:580,p:46,f:12,c:60,items:[[200,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[100,"g","Mais"],[100,"g","Paprika"],[50,"g","Kidneybohnen"],[1,"TL","Limettensaft"]],prep:"Hähnchen zerrupfen, mit Reis+Gemüse mischen, Limette drüber",tip:"Proteinreich wie Thunfisch-Bowl, ohne Fisch"},
+],
+s:[
+{id:"s1",n:"Quark-Protein-Mix",em:"🥛",k:280,p:40,f:3,c:22,items:[[250,"g","Magerquark"],[30,"g","Whey Protein"],[1,"TL","Honig"]],prep:"Mischen, fertig",tip:"Der Klassiker"},
+{id:"s2",n:"Skyr-Beeren",em:"🫐",k:250,p:32,f:2,c:28,items:[[200,"g","Skyr"],[100,"g","Beeren (TK)"],[20,"g","Haferflocken"]],prep:"Mischen",tip:"TK-Beeren antauen"},
+{id:"s3",n:"Reiswaffeln+Quark",em:"🍘",k:230,p:25,f:3,c:28,items:[[4,"Stk","Reiswaffeln"],[150,"g","Magerquark"]],prep:"Quark auf Reiswaffeln",tip:"Ideal für unterwegs"},
+{id:"s4",n:"Protein-Shake",em:"🥤",k:220,p:35,f:4,c:12,items:[[40,"g","Whey Protein"],[300,"ml","Milch 1,5%"]],prep:"Shaken",tip:"Post-Workout"},
+{id:"s5",n:"Eier+Gurke",em:"🥚",k:240,p:24,f:14,c:4,items:[[3,"Stk","Eier"],[1,"Stk","Gurke"]],prep:"Eier hartkochen, Gurke dazu",tip:"Eier Sonntag vorkochen"},
+{id:"s6",n:"Gemüsesticks+Dip",em:"🥕",k:220,p:26,f:4,c:20,items:[[200,"g","Gemüsesticks"],[200,"g","Magerquark"],[1,"TL","Kräuter"]],prep:"Quark mit Kräutern, Gemüse schneiden",tip:"Gemüse Sonntag schneiden"},
+{id:"s7",n:"Banane+Erdnussbutter",em:"🍌",k:260,p:10,f:12,c:32,items:[[1,"Stk","Banane"],[15,"g","Erdnussbutter"]],prep:"Banane mit Erdnussbutter",tip:"Schnellster Snack"},
+{id:"s8",n:"Skyr-Pudding",em:"🍮",k:250,p:36,f:3,c:22,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[1,"TL","Kakao"]],prep:"Alles dickflüssig mixen",tip:"Schoko-Whey am besten"},
+{id:"s9",n:"Quark-Brötchen",em:"🥖",k:270,p:28,f:5,c:30,items:[[150,"g","Magerquark"],[1,"Stk","Vollkornbrötchen"],[50,"g","Putenbrust Aufschnitt"]],prep:"Brötchen belegen",tip:"Gut für unterwegs"},
+{id:"s10",n:"Protein-Riegel DIY",em:"🍫",k:265,p:28,f:8,c:24,items:[[60,"g","Haferflocken"],[30,"g","Whey Protein"],[15,"g","Erdnussbutter"],[20,"g","Honig"],[30,"ml","Milch 1,5%"]],prep:"Kneten, Riegel formen, 1h kühlen",tip:"10 Riegel auf einmal"},
+{id:"s11",n:"Hüttenkäse-Tomate",em:"🍅",k:210,p:28,f:6,c:10,items:[[200,"g","Hüttenkäse"],[2,"Stk","Tomate"]],prep:"Tomaten aufschneiden, Hüttenkäse drauf",tip:"Low-Carb Snack"},
+{id:"s12",n:"Quark-Bällchen",em:"🍩",k:290,p:32,f:8,c:26,items:[[200,"g","Magerquark"],[40,"g","Haferflocken"],[30,"g","Whey Protein"],[10,"g","Kokosraspeln"]],prep:"Mischen, Bällchen formen, in Kokos wälzen",tip:"20 Stück, 5 Tage haltbar"},
+{id:"s13",n:"Haferflocken-Kekse",em:"🍪",k:250,p:20,f:8,c:30,items:[[80,"g","Haferflocken"],[1,"Stk","Banane"],[20,"g","Whey Protein"],[10,"g","Erdnussbutter"]],prep:"Banane zerdrücken, mischen, 15 Min 180°C",tip:"15 Kekse, Wochenvorrat"},
+{id:"s14",n:"Protein-Eis",em:"🍦",k:230,p:34,f:2,c:20,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[1,"Stk","Banane"],[50,"ml","Milch 1,5%"]],prep:"Mixen, 3h einfrieren, zwischendurch rühren",tip:"Gefrorene Banane = cremig"},
+{id:"s15",n:"Vollkornbrot Pute",em:"🍞",k:240,p:26,f:4,c:28,items:[[2,"Scheiben","Vollkornbrot"],[80,"g","Putenbrust Aufschnitt"],[1,"Stk","Gurke"]],prep:"Brot belegen, Gurke dazu",tip:"Einfach und solide"},
+{id:"s16",n:"Apfel-Quark",em:"🍎",k:235,p:28,f:2,c:28,items:[[200,"g","Magerquark"],[1,"Stk","Apfel"],[1,"TL","Zimt"]],prep:"Apfel reiben, mit Quark und Zimt mischen",tip:"Schmeckt wie Apfelstrudel"},
+{id:"s17",n:"Käse-Schinken-Röllchen",em:"🧀",k:220,p:26,f:10,c:8,items:[[60,"g","Schinken"],[40,"g","Käse light"],[1,"Stk","Gurke"]],prep:"Käse in Schinken rollen, Gurke dazu",tip:"Low-Carb, perfekt für unterwegs"},
+{id:"s18",n:"Protein-Bananenbrot",em:"🍌",k:275,p:24,f:8,c:34,items:[[2,"Stk","Banane"],[80,"g","Haferflocken"],[30,"g","Whey Protein"],[2,"Stk","Eier"],[1,"TL","Backpulver"]],prep:"Banane zerdrücken, alles mischen, 35 Min bei 180°C",tip:"Kastenform, 8 Scheiben, 5 Tage haltbar"},
+{id:"s19",n:"Topfennockerl süß",em:"🥟",k:260,p:30,f:6,c:24,items:[[200,"g","Magerquark"],[1,"Stk","Eier"],[30,"g","Grieß"],[1,"TL","Honig"]],prep:"Nockerl formen, in Wasser pochieren, mit Honig servieren",tip:"Österreichisch! Kalt auch gut als Snack"},
+{id:"s20",n:"Protein-Balls Schoko",em:"🍫",k:270,p:26,f:10,c:28,items:[[60,"g","Haferflocken"],[30,"g","Whey Protein"],[20,"g","Kakao"],[15,"g","Erdnussbutter"],[30,"ml","Milch 1,5%"],[1,"TL","Honig"]],prep:"Alles kneten, Bällchen formen, 1h kühlen",tip:"20 Balls, 7 Tage haltbar im Kühlschrank"},
+{id:"s21",n:"Griechischer Joghurt+Nüsse",em:"🥜",k:250,p:30,f:10,c:18,items:[[200,"g","Skyr"],[15,"g","Walnüsse"],[1,"TL","Honig"]],prep:"Skyr mit Walnüssen und Honig toppen",tip:"Einfach, sättigend, gute Fette"},
+{id:"s22",n:"Quark-Gemüse-Dip",em:"🥒",k:200,p:24,f:3,c:18,items:[[200,"g","Magerquark"],[100,"g","Gurke"],[100,"g","Paprika"],[100,"g","Möhren"],[1,"TL","Kräuter"]],prep:"Quark würzen, Gemüse in Sticks schneiden",tip:"300g Gemüse pro Portion — satt ohne Kalorien"},
+{id:"s23",n:"Energiekugeln Dattel",em:"🟤",k:260,p:18,f:10,c:30,items:[[80,"g","Datteln"],[40,"g","Haferflocken"],[20,"g","Whey Protein"],[15,"g","Erdnussbutter"],[10,"g","Kakao"]],prep:"Alles im Mixer zerkleinern, Kugeln formen",tip:"15 Kugeln, 10 Tage haltbar"},
+{id:"s24",n:"Skyr-Tiramisu",em:"🍰",k:270,p:34,f:4,c:28,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[2,"Stk","Löffelbiskuit"],[50,"ml","Kaffee kalt"],[1,"TL","Kakao"]],prep:"Biskuit in Kaffee tauchen, Skyr+Whey drauf schichten, Kakao",tip:"Dessert-Snack unter 300 kcal"},
+{id:"s25",n:"Quark-Knäckebrot",em:"🥖",k:230,p:28,f:4,c:24,items:[[4,"Stk","Knäckebrot"],[200,"g","Magerquark"],[1,"Stk","Gurke"],[1,"Prise","Salz"]],prep:"Quark auf Knäckebrot, Gurke drauf",tip:"Knusprig + cremig"},
+{id:"s26",n:"Protein-Mousse",em:"🍫",k:240,p:36,f:4,c:16,items:[[200,"g","Magerquark"],[30,"g","Whey Protein"],[1,"TL","Kakao"],[50,"ml","Milch 1,5%"]],prep:"Alles mit Handmixer aufschlagen bis luftig",tip:"Aufschlagen macht den Unterschied"},
+{id:"s27",n:"Quark-Grieß-Schnitten",em:"🍰",k:280,p:30,f:6,c:30,items:[[200,"g","Magerquark"],[40,"g","Grieß"],[1,"Stk","Eier"],[1,"TL","Honig"],[1,"TL","Backpulver"]],prep:"Mischen, in Form 20 Min backen, in Schnitten schneiden",tip:"8 Schnitten, warm oder kalt"},
+{id:"s28",n:"Thunfisch-Alternativ-Salat",em:"🥗",k:250,p:30,f:8,c:16,items:[[200,"g","Hüttenkäse"],[1,"Stk","Gurke"],[1,"Stk","Tomate"],[1,"TL","Senf"]],prep:"Hüttenkäse mit Senf würzen, Gemüse dazu",tip:"Proteinreich ohne Fisch"},
+{id:"s29",n:"Gebackene Kichererbsen",em:"🫘",k:240,p:14,f:6,c:34,items:[[200,"g","Kichererbsen"],[5,"ml","Olivenöl"],[1,"TL","Paprikapulver"],[1,"Prise","Salz"]],prep:"Kichererbsen abtropfen, würzen, 30 Min bei 200°C rösten",tip:"Knuspriger Snack, große Portion"},
+{id:"s30",n:"Skyr-Vanille-Creme",em:"🍦",k:220,p:32,f:2,c:20,items:[[200,"g","Skyr"],[30,"g","Whey Protein"],[1,"TL","Vanilleextrakt"],[1,"TL","Honig"]],prep:"Alles mixen, kalt servieren",tip:"Vanille-Whey passt perfekt"},
+],
+a:[
+{id:"a1",n:"Putengeschnetzeltes",em:"🍗",k:580,p:50,f:12,c:58,items:[[200,"g","Putenbrust"],[200,"g","Champignons"],[200,"g","Zucchini"],[150,"g","Kartoffeln"],[5,"ml","Olivenöl"]],prep:"Alles in Streifen, anbraten",tip:"Kartoffeln vorkochen"},
+{id:"a2",n:"Hähnchen-Gemüsepfanne",em:"🥘",k:560,p:48,f:10,c:60,items:[[200,"g","Hähnchenbrust"],[300,"g","Gemüse-Mix TK"],[150,"g","Kartoffeln"],[1,"TL","Kräuter"]],prep:"Kartoffeln vorkochen, alles in Pfanne",tip:"TK-Gemüse spart Arbeit"},
+{id:"a3",n:"Rindersteakstreifen",em:"🥩",k:600,p:52,f:15,c:52,items:[[180,"g","Rindfleisch mager"],[200,"g","Paprika"],[150,"g","Vollkornnudeln"],[5,"ml","Olivenöl"]],prep:"Steak in Streifen, Nudeln kochen",tip:"Nudeln separat preppen"},
+{id:"a4",n:"Ofenlachs",em:"🐟",k:590,p:46,f:18,c:55,items:[[150,"g","Lachsfilet"],[250,"g","Süßkartoffel"],[200,"g","Grüne Bohnen"],[1,"Stk","Zitrone"]],prep:"Alles auf Blech, 20 Min bei 200°C",tip:"Einfachstes Abendessen"},
+{id:"a5",n:"Quark-Auflauf herzhaft",em:"🧀",k:550,p:48,f:10,c:58,items:[[300,"g","Magerquark"],[2,"Stk","Eier"],[80,"g","Haferflocken"],[200,"g","Zucchini"],[30,"g","Käse light"]],prep:"Mischen, 30 Min bei 180°C",tip:"Große Form, 5 Portionen"},
+{id:"a6",n:"Omelette Gemüse",em:"🍳",k:520,p:42,f:20,c:38,items:[[4,"Stk","Eier"],[200,"g","Paprika"],[100,"g","Champignons"],[2,"Scheiben","Vollkornbrot"]],prep:"Gemüse anbraten, Eier drüber",tip:"Schnell & frisch, 10 Min"},
+{id:"a7",n:"Hähnchenschenkel Ofen",em:"🍖",k:610,p:52,f:16,c:54,items:[[250,"g","Hähnchenschenkel"],[300,"g","Ofengemüse"],[150,"g","Kartoffeln"],[10,"ml","Olivenöl"]],prep:"Alles auf Blech, 35 Min bei 200°C",tip:"Günstig & einfach"},
+{id:"a8",n:"Hackfleisch-Paprika",em:"🫑",k:590,p:48,f:14,c:62,items:[[200,"g","Rinderhack mager"],[2,"Stk","Paprika"],[200,"g","Tomaten passiert"],[80,"g","Reis Basmati"],[1,"Stk","Zwiebel"]],prep:"Hack+Zwiebel braten, Paprika+Tomaten köcheln",tip:"5 Portionen Pfanne"},
+{id:"a9",n:"Puten-Fajitas",em:"🌮",k:570,p:48,f:12,c:60,items:[[200,"g","Putenbrust"],[2,"Stk","Vollkorn-Wrap"],[1,"Stk","Paprika"],[1,"Stk","Zwiebel"],[50,"g","Magerquark"]],prep:"Pute+Gemüse braten, in Wraps rollen",tip:"Pute preppen, Wraps frisch"},
+{id:"a10",n:"Kartoffelpuffer+Quark",em:"🥔",k:540,p:38,f:12,c:66,items:[[400,"g","Kartoffeln"],[2,"Stk","Eier"],[30,"g","Mehl"],[200,"g","Magerquark"],[5,"ml","Öl"]],prep:"Kartoffeln reiben, Ei+Mehl, braten",tip:"Batch braten, aufwärmen"},
+{id:"a11",n:"Buddha-Bowl",em:"🥗",k:560,p:44,f:14,c:62,items:[[150,"g","Hähnchenbrust"],[70,"g","Quinoa"],[100,"g","Kichererbsen"],[100,"g","Süßkartoffel"],[100,"g","Spinat"],[10,"ml","Olivenöl"]],prep:"Quinoa+Kichererbsen kochen, Süßkartoffel backen",tip:"Komponenten einzeln preppen"},
+{id:"a12",n:"Puten-Pilz-Pfanne",em:"🍄",k:555,p:50,f:10,c:56,items:[[200,"g","Putenbrust"],[250,"g","Champignons"],[150,"g","Vollkornnudeln"],[1,"Stk","Zwiebel"],[5,"ml","Olivenöl"]],prep:"Alles anbraten, Nudeln kochen",tip:"Schnell und proteinreich"},
+{id:"a13",n:"Zucchini-Lasagne",em:"🧀",k:570,p:48,f:14,c:54,items:[[200,"g","Rinderhack mager"],[2,"Stk","Zucchini"],[200,"g","Tomaten passiert"],[100,"g","Magerquark"],[30,"g","Käse light"],[1,"Stk","Zwiebel"]],prep:"Zucchini längs hobeln statt Nudeln, schichten, 30 Min Ofen",tip:"Low-Carb Lasagne, 4 Portionen"},
+{id:"a14",n:"Hähnchen-Gyros-Pfanne",em:"🍖",k:600,p:50,f:12,c:64,items:[[200,"g","Hähnchenbrust"],[150,"g","Kartoffeln"],[200,"g","Paprika"],[1,"Stk","Zwiebel"],[1,"TL","Gyros-Gewürz"],[50,"g","Magerquark"]],prep:"Hähnchen mit Gyros-Gewürz braten, Quark-Tsatsiki",tip:"Griechisch inspiriert"},
+{id:"a15",n:"Linsensuppe deftig",em:"🥣",k:550,p:40,f:8,c:72,items:[[150,"g","Linsen braun"],[100,"g","Möhren"],[100,"g","Kartoffeln"],[1,"Stk","Zwiebel"],[500,"ml","Brühe"],[2,"Stk","Frankfurter"]],prep:"Linsen+Gemüse in Brühe kochen, Würstchen dazu",tip:"Großer Topf, einfrierbar"},
+{id:"a16",n:"Gefüllte Zucchini",em:"🌽",k:540,p:46,f:14,c:48,items:[[3,"Stk","Zucchini"],[200,"g","Rinderhack mager"],[100,"g","Tomaten passiert"],[30,"g","Käse light"],[60,"g","Reis Basmati"],[1,"Stk","Zwiebel"]],prep:"Zucchini halbieren, aushöhlen, füllen, 25 Min Ofen",tip:"6 Hälften, 3 Tage haltbar"},
+{id:"a17",n:"Puten-Spieße+Reis",em:"🍢",k:590,p:50,f:10,c:66,items:[[200,"g","Putenbrust"],[80,"g","Reis Basmati"],[1,"Stk","Paprika"],[1,"Stk","Zucchini"],[5,"ml","Olivenöl"]],prep:"Pute+Gemüse auf Spieße, braten, Reis dazu",tip:"Auch aus dem Ofen super"},
+{id:"a18",n:"Bauernfrühstück",em:"🍳",k:560,p:38,f:18,c:58,items:[[300,"g","Kartoffeln"],[4,"Stk","Eier"],[100,"g","Schinken"],[1,"Stk","Zwiebel"],[5,"ml","Öl"]],prep:"Kartoffeln vorkochen, würfeln, anbraten, Eier drüber",tip:"Resteküche — Kartoffeln vom Vortag"},
+{id:"a19",n:"Chicken-Tikka Bowl",em:"🍛",k:620,p:50,f:12,c:70,items:[[200,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[100,"g","Magerquark"],[100,"g","Tomaten passiert"],[1,"TL","Currypulver"],[1,"Stk","Zwiebel"]],prep:"Hähnchen marinieren (Quark+Curry), braten, Soße+Reis",tip:"Quark-Marinade = zartes Fleisch"},
+{id:"a20",n:"Griechische Reispfanne",em:"🥗",k:575,p:42,f:16,c:62,items:[[150,"g","Hähnchenbrust"],[80,"g","Reis Basmati"],[100,"g","Tomaten"],[50,"g","Oliven"],[30,"g","Feta"],[100,"g","Gurke"]],prep:"Reis kochen, Hähnchen braten, Gemüse frisch dazu",tip:"Frisch + Prep kombiniert"},
+{id:"a21",n:"Rindsgulasch",em:"🥘",k:600,p:50,f:14,c:58,items:[[200,"g","Rindfleisch mager"],[200,"g","Kartoffeln"],[2,"Stk","Zwiebel"],[200,"g","Tomaten passiert"],[1,"TL","Paprikapulver"]],prep:"Zwiebeln dunkel anrösten, Fleisch+Paprika dazu, 90 Min schmoren",tip:"Österr. Klassiker! Großer Topf, einfrierbar"},
+{id:"a22",n:"Krautfleckerl mit Hack",em:"🥬",k:580,p:46,f:12,c:66,items:[[150,"g","Fleckerl/Nudeln"],[200,"g","Weißkraut"],[150,"g","Rinderhack mager"],[1,"Stk","Zwiebel"],[5,"ml","Öl"]],prep:"Kraut schmoren, Hack braten, mit Fleckerl mischen",tip:"Österreichisch! Kraut am Vortag schmoren"},
+{id:"a23",n:"Eiernockerl",em:"🥚",k:530,p:34,f:16,c:58,items:[[4,"Stk","Eier"],[200,"g","Mehl"],[150,"ml","Milch 1,5%"],[200,"g","Salat-Mix"],[1,"TL","Butter"]],prep:"Nockerl-Teig in kochendes Wasser, mit Salat servieren",tip:"Wiener Klassiker, günstig und schnell"},
+{id:"a24",n:"Puten-Frikadellen",em:"🍖",k:570,p:50,f:14,c:52,items:[[250,"g","Putenhack"],[1,"Stk","Eier"],[30,"g","Semmelbrösel"],[1,"Stk","Zwiebel"],[200,"g","Kartoffeln"],[200,"g","Salat-Mix"]],prep:"Hack mit Ei+Brösel+Zwiebel mischen, Frikadellen braten",tip:"10 Stück formen, 5 Tage haltbar"},
+{id:"a25",n:"Käsespätzle light",em:"🧀",k:590,p:38,f:16,c:68,items:[[200,"g","Spätzle"],[40,"g","Käse light"],[2,"Stk","Zwiebel"],[200,"g","Salat-Mix"],[5,"ml","Öl"]],prep:"Spätzle mit Käse überbacken, Röstzwiebel drauf, Salat dazu",tip:"Leichtere Version, trotzdem Comfort Food"},
+{id:"a26",n:"Linseneintopf",em:"🥣",k:560,p:40,f:8,c:76,items:[[150,"g","Linsen braun"],[200,"g","Kartoffeln"],[100,"g","Möhren"],[100,"g","Sellerie"],[500,"ml","Brühe"],[1,"Stk","Zwiebel"]],prep:"Alles zusammen in Brühe kochen, 25 Min",tip:"Günstig, sättigend, großer Topf = 5 Portionen"},
+{id:"a27",n:"Gratiniertes Putensteak",em:"🍗",k:580,p:52,f:14,c:50,items:[[200,"g","Putenbrust"],[200,"g","Tomaten"],[30,"g","Käse light"],[200,"g","Brokkoli"],[150,"g","Kartoffeln"]],prep:"Pute braten, Tomaten+Käse drauf, 10 Min überbacken",tip:"Schnell und sieht nach was aus"},
+{id:"a28",n:"Shakshuka mit Brot",em:"🍳",k:530,p:34,f:18,c:50,items:[[4,"Stk","Eier"],[400,"g","Tomaten passiert"],[1,"Stk","Paprika"],[1,"Stk","Zwiebel"],[2,"Scheiben","Vollkornbrot"],[30,"g","Feta"]],prep:"Tomatensauce mit Paprika+Zwiebel kochen, Eier reinsetzen",tip:"Orientalisch! Günstig und vegetarisch"},
+{id:"a29",n:"Putenmedaillons",em:"🍖",k:570,p:52,f:12,c:52,items:[[200,"g","Putenbrust"],[200,"g","Champignons"],[150,"g","Kartoffeln"],[100,"g","Brokkoli"],[50,"ml","Brühe"],[5,"ml","Olivenöl"]],prep:"Pute in Scheiben braten, Pilzsoße aus Champignons+Brühe",tip:"Edel aber einfach"},
+{id:"a30",n:"Serbische Bohnensuppe",em:"🫘",k:580,p:38,f:10,c:76,items:[[200,"g","Weiße Bohnen"],[200,"g","Kartoffeln"],[200,"g","Paprika"],[200,"g","Tomaten passiert"],[1,"Stk","Zwiebel"],[500,"ml","Brühe"]],prep:"Alles zusammen kochen, 30 Min",tip:"Proteinreich durch Bohnen, günstig"},
+{id:"a31",n:"Hähnchen-Spinat-Rolle",em:"🌀",k:560,p:50,f:14,c:44,items:[[200,"g","Hähnchenbrust"],[100,"g","Spinat"],[30,"g","Käse light"],[1,"Stk","Eier"],[200,"g","Kartoffeln"]],prep:"Hähnchen flach klopfen, Spinat+Käse einrollen, braten",tip:"Schaut aufwändiger aus als es ist"},
+{id:"a32",n:"Gemüse-Quiche",em:"🥧",k:540,p:36,f:18,c:48,items:[[3,"Stk","Eier"],[100,"ml","Milch 1,5%"],[200,"g","Zucchini"],[200,"g","Paprika"],[30,"g","Käse light"],[100,"g","Mehl"],[30,"g","Butter"]],prep:"Mürbeteig aus Mehl+Butter, Füllung aus Eier+Milch+Gemüse+Käse",tip:"Große Form, 6 Stücke"},
+{id:"a33",n:"One-Pot Nudel-Hack",em:"🍝",k:610,p:48,f:14,c:66,items:[[200,"g","Rinderhack mager"],[120,"g","Vollkornnudeln"],[200,"g","Tomaten passiert"],[200,"g","Zucchini"],[1,"Stk","Zwiebel"],[400,"ml","Brühe"]],prep:"Hack anbraten, alles andere rein, 15 Min köcheln — fertig",tip:"Ein Topf, kein Abwasch, 4 Portionen"},
+{id:"a34",n:"Ofengemüse mit Quark",em:"🥕",k:480,p:32,f:10,c:60,items:[[300,"g","Kartoffeln"],[200,"g","Paprika"],[200,"g","Zucchini"],[100,"g","Möhren"],[10,"ml","Olivenöl"],[250,"g","Magerquark"],[1,"TL","Kräuter"]],prep:"Gemüse auf Blech mit Öl, 30 Min Ofen, Kräuterquark dazu",tip:"Vegetarisch, super einfach"},
+{id:"a35",n:"Puten-Piccata",em:"🍋",k:580,p:50,f:14,c:54,items:[[200,"g","Putenbrust"],[30,"g","Semmelbrösel"],[1,"Stk","Eier"],[200,"g","Vollkornnudeln"],[1,"Stk","Zitrone"],[5,"ml","Olivenöl"]],prep:"Pute panieren, in Zitronenbutter braten, Nudeln dazu",tip:"Italienisch-leicht"},
+{id:"a36",n:"Erdäpfelpuffer mit Lachs",em:"🐟",k:590,p:44,f:18,c:52,items:[[300,"g","Kartoffeln"],[2,"Stk","Eier"],[30,"g","Mehl"],[150,"g","Lachsfilet"],[100,"g","Magerquark"],[1,"TL","Dill"]],prep:"Kartoffeln reiben, Puffer braten, Lachs im Ofen, Quark-Dill-Dip",tip:"Österr. Kombination aus Puffer+Lachs"},
+{id:"a37",n:"Hähnchen-Gemüse-Spieße",em:"🍢",k:550,p:48,f:12,c:50,items:[[200,"g","Hähnchenbrust"],[1,"Stk","Paprika"],[1,"Stk","Zucchini"],[100,"g","Champignons"],[80,"g","Reis Basmati"],[10,"ml","Olivenöl"]],prep:"Alles auf Spieße stecken, braten oder grillen, Reis dazu",tip:"Auch im Ofen bei 200°C, 20 Min"},
+{id:"a38",n:"Überbackene Putenschnitzel",em:"🧀",k:600,p:54,f:16,c:48,items:[[200,"g","Putenbrust"],[100,"g","Tomaten"],[100,"g","Champignons"],[40,"g","Käse light"],[200,"g","Salat-Mix"],[150,"g","Kartoffeln"]],prep:"Pute braten, Tomaten+Pilze+Käse drauf, 10 Min überbacken",tip:"Sieht aus wie im Restaurant"},
+]
+};
+const SLOTS=[{key:"f",label:"Frühstück",col:"#f59e0b"},{key:"m",label:"Mittag",col:"#6366f1"},{key:"s",label:"Snack",col:"#10b981"},{key:"a",label:"Abend",col:"#f43f5e"}];
+const PD=[
+{name:"Ganzkörper",sh:"GK",col:"#6366f1",mov:["Beine Quaddominant","Beine hintere Kette","Push horizontal","Pull vertikal","Push vertikal","Pull horizontal","Arme isoliert Bizeps"]},
+{name:"Oberkörper",sh:"OK",col:"#f59e0b",mov:["Push horizontal","Pull horizontal","Push vertikal","Pull vertikal","Schulter isoliert Seite","Brust isoliert","Arme isoliert Trizeps"]},
+{name:"Unterkörper",sh:"UK",col:"#10b981",mov:["Beine Quaddominant","Beine hintere Kette","Beine Glutedominant","Beinstrecker","Beinbeuger","Waden","Bauch"]}
+];
+const EX={"Beine Quaddominant":["Kniebeuge mit Band","Kniebeuge mit Kurzhantel","Goblet Squat Kettlebell","Bulgarian Split Squats","Ausfallschritte mit Kurzhantel","Ausfallschritte mit Band","Spanish Squad","Einbeinige Kniebeuge"],"Beine hintere Kette":["Good Mornings mit Band","Rumänisches Kreuzheben Kurzhantel","Rumänisches Kreuzheben Kettlebell","Einb. rum. Kreuzheben","Kreuzheben mit Kurzhantel"],"Beine Glutedominant":["Bulgarian Split Squats Kurzhantel","Hip Thrust mit Band","Hip Thrust mit Gewicht","Po Brücke mit Band","Kettlebell Swing"],"Beinstrecker":["Beinstrecker mit Band","Reverse Nordic Curl","Sissy Squat"],"Beinbeuger":["Beinbeuger mit Band","Nordic Curl","Medizinball Leg Curl"],"Waden":["Wadenheben mit Band","Wadenheben mit Kurzhantel","Wadenheben auf Stufe"],"Push horizontal":["Liegestütze","Diamond Pushups","Brustpresse mit Band","Kurzhantel Bankdrücken (Boden)","Medizinball Liegestütze"],"Pull horizontal":["Rudern sitzend mit Band","Rudern vorgebeugt Kurzhantel","Rudern einarmig Kurzhantel","Kettlebell Rudern"],"Push vertikal":["Schulterdrücken mit Band","Schulterdrücken Kurzhantel","Kettlebell Press","Aufrechtes Rudern Kurzhantel","Pike Pushups"],"Pull vertikal":["Überzüge mit Band","Latzug mit Band","Klimmzüge (Stange)","Klimmzüge eng","Kurzhantel Überzüge (Boden)"],"Schulter isoliert Seite":["Seitheben mit Band","Seitheben Kurzhantel","V-Raises mit Band"],"Brust isoliert":["Fliegende mit Band","Fliegende Kurzhantel (Boden)"],"Arme isoliert Bizeps":["Bizeps Curls mit Band","Bizeps Curls Kurzhantel","Hammer Curls Kurzhantel","Konzentrations-Curls","Kettlebell Curls"],"Arme isoliert Trizeps":["Trizeps Drücken mit Band","Trizeps Kickbacks Kurzhantel","Dips (Stuhl/Stufe)","Stirndrücken Kurzhantel","Enges Bankdrücken (Boden)"],"Bauch":["Crunches","Plank","Leg Raises","Russian Twist Medizinball","Mountain Climbers","Medizinball Slam","Sit-Ups mit Gewicht","Bicycle Crunches"]};
+const SW=[[3,3,3,3,3,3,3],[4,3,3,3,3,3,3],[4,4,3,3,3,3,3],[4,4,4,3,3,3,3],[4,4,4,4,3,3,3],[4,4,4,4,4,3,3],[3,3,3,3,3,3,3],[4,3,3,3,3,3,3],[4,4,3,3,3,3,3],[4,4,4,3,3,3,3],[4,4,4,4,3,3,3],[4,4,4,4,4,3,3]];
+const TGT={kcal:2350,protein:200,fat:53,carbs:265};
+const DS=["So","Mo","Di","Mi","Do","Fr","Sa"];
+
+let state={page:"dash",config:null,date:new Date().toISOString().slice(0,10),logs:{},workouts:{},meals:{},measures:{},selDay:0,eView:"tag",shopMode:"woche",pickSlot:null,pickDate:null};
+
+// ═══════════════ STORAGE ═══════════════
+async function load(){
+  try{
+    let c=await window.storage.get("90tc-c");if(c)state.config=JSON.parse(c.value);
+    let l=await window.storage.get("90tc-l");if(l)state.logs=JSON.parse(l.value);
+    let w=await window.storage.get("90tc-w");if(w)state.workouts=JSON.parse(w.value);
+    let m=await window.storage.get("90tc-m");if(m)state.meals=JSON.parse(m.value);
+    let ms=await window.storage.get("90tc-ms");if(ms)state.measures=JSON.parse(ms.value);
+  }catch(e){}
+  render();
+}
+async function saveConfig(){try{await window.storage.set("90tc-c",JSON.stringify(state.config));}catch(e){}}
+async function saveLogs(){try{await window.storage.set("90tc-l",JSON.stringify(state.logs));}catch(e){}}
+async function saveWo(){try{await window.storage.set("90tc-w",JSON.stringify(state.workouts));}catch(e){}}
+async function saveMeals(){try{await window.storage.set("90tc-m",JSON.stringify(state.meals));}catch(e){}}
+async function saveMeasures(){try{await window.storage.set("90tc-ms",JSON.stringify(state.measures));}catch(e){}}
+
+// ═══════════════ HELPERS ═══════════════
+function pD(s){let[y,m,d]=s.split("-");return new Date(y,m-1,d);}
+function fmt(d){return d.toISOString().slice(0,10);}
+function fmtD(s){let d=pD(s);return DS[d.getDay()]+", "+d.getDate()+"."+(d.getMonth()+1)+".";}
+function chDate(n){let d=pD(state.date);d.setDate(d.getDate()+n);state.date=fmt(d);render();}
+function getLog(){return state.logs[state.date]||{weight:0,kcal:0,protein:0,fat:0,carbs:0,sleep:0,steps:0,water:0,trained:false,progression:false,good1:"",good2:"",good3:"",supWhey:false,supCreatin:false,supVitamin:false,supOmega:false};}
+function setLog(k,v){let l=getLog();l[k]=v;state.logs[state.date]=l;saveLogs();render();}
+function getMeal(dt,sl){let id=state.meals[dt+"-"+sl];if(!id)return null;return R[sl].find(r=>r.id===id)||null;}
+function getStreak(){
+  if(!state.config)return 0;let streak=0;let d=new Date();
+  for(let i=0;i<90;i++){let dt=fmt(d);let l=state.logs[dt];if(!l)break;
+    let ct={...TGT};let wi2=getWIforDate(dt);if(wi2>8){ct.kcal=2115;}else if(wi2>4){ct.kcal=2230;}
+    let ok=l.kcal>=ct.kcal*.9&&l.kcal<=ct.kcal*1.1&&l.protein>=200*.9&&l.steps>=9000&&l.sleep>=7&&l.water>=3.2;
+    if(ok)streak++;else break;d.setDate(d.getDate()-1);}return streak;
+}
+function getWIforDate(dt){if(!state.config)return 1;let diff=Math.floor((pD(dt)-pD(state.config.sd))/864e5);return Math.min(12,Math.max(1,Math.ceil(Math.max(1,diff+1)/7)));}
+function getDaysLeft(){if(!state.config)return 90;let diff=Math.floor((new Date()-pD(state.config.sd))/864e5);return Math.max(0,90-diff);}
+function getBadges(){
+  let b=[];let days=Object.keys(state.logs).length;let trains=Object.values(state.logs).filter(l=>l.trained).length;
+  let weights=Object.entries(state.logs).filter(([_,l])=>l.weight>0).sort(([a],[b2])=>a.localeCompare(b2));
+  let lost=weights.length>=2?weights[0][1].weight-weights[weights.length-1][1].weight:0;
+  if(days>=1)b.push({em:"🎯",n:"Erster Tag",d:"Challenge gestartet!"});
+  if(days>=7)b.push({em:"📅",n:"Erste Woche",d:"7 Tage geloggt"});
+  if(days>=30)b.push({em:"🔥",n:"30 Tage",d:"Einen Monat durchgehalten!"});
+  if(days>=60)b.push({em:"💎",n:"60 Tage",d:"Zwei Drittel geschafft!"});
+  if(days>=90)b.push({em:"🏆",n:"90 TAGE!",d:"Challenge komplett!"});
+  if(trains>=1)b.push({em:"💪",n:"Erstes Training",d:"Los geht's!"});
+  if(trains>=10)b.push({em:"🏋️",n:"10 Trainings",d:"Routine aufgebaut"});
+  if(trains>=25)b.push({em:"⚡",n:"25 Trainings",d:"Maschine!"});
+  if(trains>=36)b.push({em:"👑",n:"Alle 36 Trainings",d:"Perfekte Disziplin!"});
+  if(lost>=2)b.push({em:"📉",n:"-2 kg",d:"Erste Erfolge!"});
+  if(lost>=5)b.push({em:"🎉",n:"-5 kg",d:"Halbzeit-Ziel!"});
+  if(lost>=10)b.push({em:"🥇",n:"-10 kg",d:"ZIEL ERREICHT!"});
+  if(getStreak()>=7)b.push({em:"🔥",n:"7-Tage-Streak",d:"Eine Woche perfekt!"});
+  if(getStreak()>=30)b.push({em:"💫",n:"30-Tage-Streak",d:"Unaufhaltbar!"});
+  return b;
+}
+function exDemo(name){return `<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(name+' Übung Anleitung Band')}" target="_blank" rel="noopener" style="font-size:8px;color:#818cf8;text-decoration:none;margin-left:4px">📹 Demo</a>`;}
+function setMeasure(week,field,val){if(!state.measures[week])state.measures[week]={};state.measures[week][field]=val;saveMeasures();render();}
+function getWI(){
+  if(!state.config)return{week:1,td:1,dl:false};
+  let diff=Math.floor((pD(state.date)-pD(state.config.sd))/864e5);
+  let td=Math.max(1,diff+1),w=Math.min(12,Math.max(1,Math.ceil(td/7)));
+  return{week:w,td:td,dl:w===7};
+}
+function getCT(){let wi=getWI();let base=state.config&&state.config.targets?state.config.targets:{...TGT};let ct={...base};if(wi.week>8){ct.kcal=Math.round(base.kcal*0.9);ct.carbs=Math.round(base.carbs*0.85);}else if(wi.week>4){ct.kcal=Math.round(base.kcal*0.95);ct.carbs=Math.round(base.carbs*0.92);}return ct;}
+function getWeekDates(){
+  let d=pD(state.date),dow=d.getDay(),mon=new Date(d);
+  mon.setDate(d.getDate()-((dow+6)%7));
+  return Array.from({length:7},(_,i)=>{let x=new Date(mon);x.setDate(mon.getDate()+i);return fmt(x);});
+}
+function getShopList(dates){
+  let items={};
+  dates.forEach(dt=>{SLOTS.forEach(sl=>{let meal=getMeal(dt,sl.key);if(!meal)return;meal.items.forEach(it=>{let k=it[2]+"||"+it[1];if(!items[k])items[k]={name:it[2],unit:it[1],amt:0};items[k].amt+=it[0];});});});
+  return Object.values(items).sort((a,b)=>a.name.localeCompare(b.name));
+}
+function categ(n){
+  if(/Hähnchen|Puten|Rind|Hack|Lachs|Schinken|Frankfurter/.test(n))return"🥩 Fleisch & Fisch";
+  if(/Quark|Skyr|Milch|Käse|Eier|Whey|Butter|Hüttenkäse|Feta|Joghurt|Kaffee/.test(n))return"🥛 Milch & Protein";
+  if(/Reis|Nudel|Hafer|Brot|Wrap|Mehl|Müsli|Quinoa|Reiswaffeln|Brötchen|Grieß|Couscous|Semmel|Linsen|Chia|Back|Granola|Spätzle|Fleckerl|Rosinen|Knäckebrot|Löffelbiskuit|Datteln/.test(n))return"🌾 Getreide";
+  if(/Brokkoli|Paprika|Zucchini|Tomat|Zwiebel|Bohnen|Spinat|Gurke|Möhren|Champignon|Salat|Erbsen|Mais|Gemüse|Kartoffel|Süßkartoffel|Knoblauch|Ofen|Kraut|Oliven|Sellerie|Kürbis|Avocado|Dill|Schnittlauch|Ingwer/.test(n))return"🥬 Gemüse";
+  if(/Banane|Apfel|Beeren|Zitrone|Limette/.test(n))return"🍎 Obst";
+  if(/Öl|Oliven|Honig|Soja|Erdnuss|Curry|Kräuter|Sesam|Kakao|Gyros|Zimt|Brühe|Vanille|Senf|Chili|Paprikapulver/.test(n))return"🧂 Gewürze";
+  if(/Kidney|Kichererbsen|Kokosmilch|Weiße Bohnen/.test(n))return"🥫 Konserven";
+  if(/Mandeln|Walnüsse|Kokosraspeln/.test(n))return"🥜 Nüsse";
+  return"📦 Sonstiges";
+}
+function ring(val,max,col){
+  let pct=Math.min(val/max,1),c=pct>=1?"#22c55e":col;
+  return `<svg width="56" height="56" style="transform:rotate(-90deg)"><circle cx="28" cy="28" r="24" fill="none" stroke="#1e293b" stroke-width="5"/><circle cx="28" cy="28" r="24" fill="none" stroke="${c}" stroke-width="5" stroke-dasharray="${150.8}" stroke-dashoffset="${150.8*(1-pct)}" stroke-linecap="round"/></svg>`;
+}
+function rLink(name){return `<a class="recipe-link" href="https://www.google.com/search?q=${encodeURIComponent(name+' Rezept')}" target="_blank" rel="noopener">🔗 Rezept</a>`;}
+function yazioBox(r){return `<div class="yazio-box"><div style="color:#e2e8f0;font-weight:700">${r.k}<span class="yz-label">kcal</span></div><div style="color:#f43f5e">${r.p}g<span class="yz-label">Eiweiß</span></div><div style="color:#f59e0b">${r.f}g<span class="yz-label">Fett</span></div><div style="color:#a78bfa">${r.c}g<span class="yz-label">Kohlenh.</span></div></div>`;}
+function recipeDetail(r){return `<div style="margin-top:6px;padding-left:58px"><div style="font-size:10px;color:#94a3b8;margin-bottom:3px">📝 <strong>Zutaten:</strong> ${r.items.map(i=>i[0]+i[1]+" "+i[2]).join(" · ")}</div><div style="font-size:10px;color:#6ee7b7;margin-bottom:3px">👨‍🍳 <strong>Zubereitung:</strong> ${r.prep}</div><div style="font-size:10px;color:#f59e0b;margin-bottom:3px">💡 <strong>Meal-Prep:</strong> ${r.tip}</div>${yazioBox(r)}${rLink(r.n)}</div>`;}
+function printDay(){
+  let dm=SLOTS.map(sl=>({label:sl.label,meal:getMeal(state.date,sl.key)}));
+  let tot=dm.reduce((a,d)=>d.meal?{k:a.k+d.meal.k,p:a.p+d.meal.p,f:a.f+d.meal.f,c:a.c+d.meal.c}:a,{k:0,p:0,f:0,c:0});
+  let html=`<div style="font-family:sans-serif;max-width:700px;margin:0 auto;padding:20px"><h1 style="font-size:20px;margin-bottom:4px">90 Tage Challenge — Essensplan</h1><h2 style="font-size:16px;color:#666;margin-bottom:16px">${fmtD(state.date)}</h2>`;
+  dm.forEach(d=>{if(!d.meal)return;let m=d.meal;html+=`<div style="border:1px solid #ddd;border-radius:8px;padding:12px;margin-bottom:10px;break-inside:avoid"><h3 style="font-size:14px;margin-bottom:4px">${m.em} ${d.label}: ${m.n}</h3><table style="width:100%;font-size:12px;margin-bottom:6px;border-collapse:collapse"><tr style="background:#f0f0f0"><td style="padding:4px 8px;font-weight:bold">Kalorien</td><td style="padding:4px 8px;font-weight:bold">Eiweiß</td><td style="padding:4px 8px;font-weight:bold">Fett</td><td style="padding:4px 8px;font-weight:bold">Kohlenh.</td></tr><tr><td style="padding:4px 8px">${m.k} kcal</td><td style="padding:4px 8px">${m.p}g</td><td style="padding:4px 8px">${m.f}g</td><td style="padding:4px 8px">${m.c}g</td></tr></table><p style="font-size:11px;margin:4px 0"><strong>Zutaten:</strong> ${m.items.map(i=>i[0]+i[1]+" "+i[2]).join(", ")}</p><p style="font-size:11px;margin:4px 0"><strong>Zubereitung:</strong> ${m.prep}</p><p style="font-size:11px;margin:4px 0;color:#888"><strong>Meal-Prep:</strong> ${m.tip}</p></div>`;});
+  html+=`<div style="border:2px solid #333;border-radius:8px;padding:10px;margin-top:10px"><strong>Tages-Gesamt:</strong> ${tot.k} kcal · Eiweiß: ${tot.p}g · Fett: ${tot.f}g · KH: ${tot.c}g</div></div>`;
+  document.getElementById('printArea').innerHTML=html;window.print();
+}
+function printWeek(){
+  let wd=getWeekDates();
+  let html=`<div style="font-family:sans-serif;max-width:700px;margin:0 auto;padding:20px"><h1 style="font-size:20px;margin-bottom:16px">90 Tage Challenge — Wochenplan</h1>`;
+  wd.forEach(dt=>{
+    let dow=pD(dt).getDay();
+    let dm=SLOTS.map(sl=>({label:sl.label,meal:getMeal(dt,sl.key)})).filter(d=>d.meal);
+    if(!dm.length)return;
+    let tot=dm.reduce((a,d)=>({k:a.k+d.meal.k,p:a.p+d.meal.p,f:a.f+d.meal.f,c:a.c+d.meal.c}),{k:0,p:0,f:0,c:0});
+    html+=`<div style="break-inside:avoid;margin-bottom:16px"><h2 style="font-size:15px;border-bottom:2px solid #333;padding-bottom:4px;margin-bottom:8px">${DS[dow]} ${pD(dt).getDate()}.${pD(dt).getMonth()+1}. — ${tot.k} kcal · P:${tot.p}g · F:${tot.f}g · KH:${tot.c}g</h2>`;
+    dm.forEach(d=>{let m=d.meal;html+=`<div style="border:1px solid #ddd;border-radius:6px;padding:8px;margin-bottom:6px"><strong>${m.em} ${d.label}: ${m.n}</strong> <span style="color:#666;font-size:11px">(${m.k}kcal · E:${m.p}g · F:${m.f}g · KH:${m.c}g)</span><br><span style="font-size:11px">📝 ${m.items.map(i=>i[0]+i[1]+" "+i[2]).join(", ")}</span><br><span style="font-size:11px;color:#555">👨‍🍳 ${m.prep}</span></div>`;});
+    html+=`</div>`;
+  });
+  let shop=getShopList(wd);
+  if(shop.length){
+    html+=`<div style="break-before:page"><h2 style="font-size:16px;margin-bottom:8px">🛒 Einkaufsliste</h2>`;
+    let cats={};shop.forEach(it=>{let c=categ(it.name);if(!cats[c])cats[c]=[];cats[c].push(it);});
+    Object.entries(cats).sort().forEach(([cat,items])=>{html+=`<h3 style="font-size:13px;color:#666;margin:8px 0 4px">${cat}</h3>`;items.forEach(it=>{html+=`<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #eee;font-size:12px"><span>${it.name}</span><strong>${Math.round(it.amt*10)/10}${it.unit?" "+it.unit:""}</strong></div>`;});});
+    html+=`</div>`;
+  }
+  html+=`</div>`;
+  document.getElementById('printArea').innerHTML=html;window.print();
+}
+// ═══════════════ RENDER ═══════════════
+function render(){
+  let app=document.getElementById("app");
+  if(!state.config){app.innerHTML=renderSetup();return;}
+  let wi=getWI(),ct=getCT();
+  let content="";
+  if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
+  if(state.page==="dash")content=renderDash(wi,ct);
+  else if(state.page==="train")content=renderTrain(wi);
+  else if(state.page==="essen")content=renderEssen();
+  else if(state.page==="stats")content=renderStats(wi,ct);
+  else if(state.page==="cfg")content=renderCfg();
+  app.innerHTML=`<div class="hdr"><span class="logo">90TC <span style="color:#6366f1;font-size:10px">${state.config.name||"GK/OK/UK"}</span></span><span style="font-size:9px;color:#64748b">W${wi.week} · ${ct.kcal}kcal</span></div><div class="main">${content}</div><div class="tabs">${["dash","train","essen","stats","cfg"].map((id,i)=>`<button class="tab ${state.page===id?"active":""}" onclick="state.page='${id}';render()">${["📋","💪","🍽️","📊","⚙️"][i]}<span>${["Heute","Training","Essen","Stats","Setup"][i]}</span></button>`).join("")}</div>`;
+}
+
+function renderSetup(){
+  let cfg=state.config||{};
+  let ALL_EQ=[
+    {id:"band",n:"Widerstandsbänder",em:"🟥",on:true},
+    {id:"kh",n:"Kurzhanteln",em:"🏋️",on:false},
+    {id:"kb",n:"Kettlebell",em:"🔔",on:false},
+    {id:"mb",n:"Medizinbälle",em:"⚾",on:false},
+    {id:"pullup",n:"Klimmzugstange",em:"🏗️",on:false},
+    {id:"bike",n:"Indoor Bike",em:"🚴",on:false},
+    {id:"ball",n:"Gymnastikball",em:"🟣",on:false},
+    {id:"matte",n:"Yogamatte",em:"🧘",on:false},
+    {id:"straps",n:"Ab-Straps/Schlaufen",em:"🔗",on:false},
+  ];
+  let eq=cfg.equipment||ALL_EQ.reduce((a,e)=>{a[e.id]=e.on;return a;},{});
+  let h=cfg.height||175, w=cfg.weight||90, age=cfg.age||44, act=cfg.activity||"buero3";
+  let name=cfg.name||"";
+  // Calculate macros
+  let bmr=Math.round(10*w+6.25*h-5*age+5);
+  let factors={"buero3":1.55,"buero5":1.65,"aktiv3":1.7,"aktiv5":1.8};
+  let tdee=Math.round(bmr*(factors[act]||1.55));
+  let deficit=Math.round(tdee*0.85);
+  let protein=Math.round(w*2.2);
+  let fat=Math.round(deficit*0.2/9);
+  let carbs=Math.round((deficit-protein*4-fat*9)/4);
+
+  return `<div style="padding:16px;max-width:440px;margin:0 auto;padding-top:20px">
+<div style="font-size:28px;font-weight:800;text-align:center">90 TAGE</div>
+<div style="font-size:12px;text-align:center;color:#6366f1;font-weight:700;letter-spacing:3px;margin-bottom:20px">CHALLENGE</div>
+
+<div class="card" style="margin-bottom:10px">
+<div class="section-hdr">👤 PERSÖNLICHE DATEN</div>
+<div style="margin-bottom:6px"><span style="font-size:10px;color:#64748b">Name (optional)</span><input id="cfgName" type="text" value="${name}" placeholder="Dein Name" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:14px;margin-top:2px;box-sizing:border-box"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<div><span style="font-size:10px;color:#64748b">Größe (cm)</span><input id="cfgH" type="number" value="${h}" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#22d3ee;font-size:14px;font-weight:700;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Gewicht (kg)</span><input id="cfgW" type="number" value="${w}" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#22d3ee;font-size:14px;font-weight:700;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Alter</span><input id="cfgAge" type="number" value="${age}" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#22d3ee;font-size:14px;font-weight:700;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Aktivität</span><select id="cfgAct" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:12px;box-sizing:border-box">
+<option value="buero3"${act==="buero3"?" selected":""}>Büro + 3× Training</option>
+<option value="buero5"${act==="buero5"?" selected":""}>Büro + 5× Training</option>
+<option value="aktiv3"${act==="aktiv3"?" selected":""}>Aktiver Job + 3× Training</option>
+<option value="aktiv5"${act==="aktiv5"?" selected":""}>Aktiver Job + 5× Training</option>
+</select></div>
+</div></div>
+
+<div class="card" style="margin-bottom:10px">
+<div class="section-hdr">🏠 DEIN EQUIPMENT</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px">${ALL_EQ.map(e=>`<button id="eq_${e.id}" onclick="document.getElementById('eq_${e.id}').classList.toggle('on');document.getElementById('eq_${e.id}').dataset.v=document.getElementById('eq_${e.id}').classList.contains('on')?'1':'0'" class="toggle-btn ${eq[e.id]?"on":""}" data-v="${eq[e.id]?"1":"0"}" style="padding:6px 10px;font-size:10px">${e.em} ${e.n}</button>`).join("")}</div>
+</div>
+
+<div class="card" style="margin-bottom:10px">
+<div class="section-hdr">📅 STARTDATUM</div>
+<input id="cfgSD" type="date" value="${cfg.sd||new Date().toISOString().slice(0,10)}" style="width:100%;padding:10px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:14px;box-sizing:border-box">
+</div>
+
+<div class="card" style="margin-bottom:12px;background:#0f172a;border:1px solid #334155">
+<div class="section-hdr">📊 BERECHNETE ZIELWERTE</div>
+<div style="font-size:10px;color:#64748b;margin-bottom:6px">BMR: ${bmr} kcal · TDEE: ${tdee} kcal · Defizit: ~15%</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">${[
+  ["Kalorien",deficit+" kcal","#6366f1"],
+  ["Protein",protein+" g","#f43f5e"],
+  ["Fett",fat+" g","#f59e0b"],
+  ["KH",carbs+" g","#a78bfa"],
+].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;padding:4px 6px;background:#1e293b;border-radius:6px"><span style="font-size:11px;color:#94a3b8">${l}</span><span style="font-size:11px;font-weight:700;color:${c}">${v}</span></div>`).join("")}</div>
+</div>
+
+<button class="btn-primary" onclick="startChallenge()">Challenge starten! 💪</button>
+<div style="margin-top:12px;padding:10px;background:#1e293b;border-radius:10px;font-size:10px;color:#94a3b8"><strong style="color:#6366f1">📱 Tipp:</strong> Android: Chrome → Menü → "Zum Startbildschirm". iPhone: Safari → Teilen → "Zum Home-Bildschirm"</div>
+</div>`;
+}
+function startChallenge(){
+  let h=+document.getElementById('cfgH').value||175;
+  let w=+document.getElementById('cfgW').value||90;
+  let age=+document.getElementById('cfgAge').value||44;
+  let act=document.getElementById('cfgAct').value||"buero3";
+  let name=document.getElementById('cfgName').value||"";
+  let sd=document.getElementById('cfgSD').value||new Date().toISOString().slice(0,10);
+  let eq={};
+  ["band","kh","kb","mb","pullup","bike","ball","matte","straps"].forEach(function(id){
+    let el=document.getElementById('eq_'+id);eq[id]=el&&el.dataset.v==="1";
+  });
+  let bmr=Math.round(10*w+6.25*h-5*age+5);
+  let factors={"buero3":1.55,"buero5":1.65,"aktiv3":1.7,"aktiv5":1.8};
+  let tdee=Math.round(bmr*(factors[act]||1.55));
+  let deficit=Math.round(tdee*0.85);
+  let protein=Math.round(w*2.2);
+  let fat=Math.round(deficit*0.2/9);
+  let carbs=Math.round((deficit-protein*4-fat*9)/4);
+  state.config={sd:sd,name:name,height:h,weight:w,age:age,activity:act,equipment:eq,targets:{kcal:deficit,protein:protein,fat:fat,carbs:carbs}};
+  saveConfig();render();
+}
+
+function renderDash(wi,ct){
+  let l=getLog();
+  let checks=[l.kcal>=ct.kcal*.9&&l.kcal<=ct.kcal*1.1,l.protein>=ct.protein*.9,l.trained,l.steps>=10000*.9,l.sleep>=7,l.water>=3.2];
+  let score=checks.filter(Boolean).length;
+  let todayMeals=SLOTS.map(sl=>({...sl,meal:getMeal(state.date,sl.key)}));
+  let mt=todayMeals.reduce((a,t)=>t.meal?{k:a.k+t.meal.k,p:a.p+t.meal.p}:a,{k:0,p:0});
+  return `<div class="date-nav"><button class="nav-btn" onclick="chDate(-1)">‹</button><div style="text-align:center"><div style="font-size:15px;font-weight:700">${fmtD(state.date)}</div><div style="font-size:10px;color:${wi.dl?"#f59e0b":"#6366f1"};font-weight:600">Woche ${wi.week}/12 · Tag ${wi.td}${wi.dl?" · DELOAD":""}</div></div><button class="nav-btn" onclick="chDate(1)">›</button></div>
+<div style="background:#1e293b;border-radius:10px;padding:8px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b">⏱ Noch</span><span style="font-size:16px;font-weight:800;color:#6366f1">${getDaysLeft()}</span><span style="font-size:10px;color:#64748b">Tage</span></div><div style="flex:1;margin:0 10px;background:#0f172a;border-radius:4px;height:6px;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#6366f1,#22c55e);border-radius:4px;width:${Math.min(100,Math.round((90-getDaysLeft())/90*100))}%"></div></div><div style="display:flex;align-items:center;gap:4px">${getStreak()>0?`<span style="font-size:10px;color:#f59e0b">🔥${getStreak()}</span>`:""}</div></div>
+<div class="score-card" style="background:${score>=5?"linear-gradient(135deg,#065f46,#064e3b)":"#1e293b"}"><div style="font-size:30px;font-weight:800">${score}<span style="font-size:13px;color:#94a3b8">/6</span></div><div style="font-size:10px;color:${score>=5?"#6ee7b7":"#94a3b8"}">${score>=5?"Starker Tag! 💪":score>=3?"Weiter so!":"Bleib dran!"}</div></div>
+<div class="rings">${[["kcal",l.kcal,ct.kcal,"#6366f1"],["Protein",l.protein,200,"#f43f5e"],["Schritte",l.steps,10000,"#10b981"],["Wasser",l.water,4,"#3b82f6"]].map(([lb,v,mx,cl])=>`<div class="ring-wrap">${ring(v,mx,cl)}<div class="ring-val" style="color:${Math.min(v/mx,1)>=1?"#22c55e":cl}">${v}</div><div class="ring-lbl">${lb}</div></div>`).join("")}</div>
+<div class="card"><div class="section-hdr">Mahlzeiten heute ${mt.k>0?`<span style="color:#6366f1;font-weight:700">${mt.k} kcal · P:${mt.p}g</span>`:""}</div>${todayMeals.map(t=>`<div class="meal-mini" onclick="state.pickSlot='${t.key}';state.pickDate=state.date;render()" style="border-left:3px solid ${t.col}"><span style="font-size:16px">${t.meal?t.meal.em:"+"}</span><div style="flex:1"><div style="font-size:11px;font-weight:600;color:${t.meal?"#e2e8f0":"#475569"}">${t.meal?t.meal.n:t.label+" wählen..."}</div></div>${t.meal?`<span style="font-size:10px;color:#64748b">${t.meal.k}</span>`:""}<span style="color:#475569">›</span></div>`).join("")}</div>
+<div class="card"><div class="section-hdr">Tracking</div>${numIn("Kalorien","kcal",l.kcal,50,"kcal")}${numIn("Protein","protein",l.protein,5,"g")}${numIn("Fett","fat",l.fat,5,"g")}${numIn("KH","carbs",l.carbs,10,"g")}</div>
+<div class="card">${numIn("Gewicht","weight",l.weight,0.1,"kg")}${numIn("Schlaf","sleep",l.sleep,0.5,"h")}${numIn("Schritte","steps",l.steps,500,"")}${numIn("Wasser","water",l.water,0.5,"L")}</div>
+<div style="display:flex;gap:5px"><button class="toggle-btn ${l.trained?"on":""}" onclick="setLog('trained',${!l.trained})">${l.trained?"✓ ":""}Trainiert</button><button class="toggle-btn ${l.progression?"on":""}" onclick="setLog('progression',${!l.progression})">${l.progression?"✓ ":""}Progression</button></div>
+<div class="card" style="margin-top:6px"><div class="section-hdr">💊 SUPPLEMENTE</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px">${[["supWhey","Whey","🥛"],["supCreatin","Kreatin","💊"],["supVitamin","Vitamine","🍊"],["supOmega","Omega-3","🐟"]].map(([k,n,e])=>`<button onclick="setLog('${k}',${!l[k]})" style="padding:5px 10px;border-radius:7px;border:none;cursor:pointer;font-size:10px;font-weight:600;background:${l[k]?"#065f46":"#0f172a"};color:${l[k]?"#6ee7b7":"#64748b"}">${l[k]?"✓ ":""}${e} ${n}</button>`).join("")}</div></div>
+<div class="card"><div class="section-hdr">✨ 3 GUTE DINGE HEUTE</div>
+<input type="text" value="${l.good1||""}" placeholder="1. Was war heute gut?" onchange="setLog('good1',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;margin-bottom:4px;box-sizing:border-box">
+<input type="text" value="${l.good2||""}" placeholder="2. Worauf bin ich stolz?" onchange="setLog('good2',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;margin-bottom:4px;box-sizing:border-box">
+<input type="text" value="${l.good3||""}" placeholder="3. Was hat mir Energie gegeben?" onchange="setLog('good3',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;box-sizing:border-box">
+</div>`;
+}
+function numIn(label,key,val,step,unit){
+  return `<div class="num-row"><span>${label}</span><div class="num-ctrl"><button onclick="setLog('${key}',Math.max(0,+(getLog().${key}-${step}).toFixed(1)))">−</button><input type="number" value="${val||""}" onchange="setLog('${key}',Number(this.value)||0)" style="width:50px;text-align:center;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#6366f1;font-weight:700;font-size:13px;padding:2px 0"><button onclick="setLog('${key}',+(getLog().${key}+${step}).toFixed(1))">+</button>${unit?`<span class="unit">${unit}</span>`:""}</div></div>`;
+}
+function renderTrain(wi){
+  let plan=PD[state.selDay],sets=SW[wi.week-1];
+  let wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""})),warmup:[],cooldown:[],note:"",energy:0,rating:0,duration:0,soreness:"",nextTime:""};
+  let exs=wo.exercises||plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""}));
+  let BANDS=[{n:"Kein",c:"#475569"},{n:"Rot (leicht)",c:"#ef4444"},{n:"Schwarz",c:"#e2e8f0"},{n:"Violett",c:"#a855f7"},{n:"Grün (stark)",c:"#22c55e"},{n:"KH leicht",c:"#38bdf8"},{n:"KH schwer",c:"#0ea5e9"},{n:"Kettlebell",c:"#f97316"},{n:"Med.Ball 4kg",c:"#facc15"},{n:"Med.Ball 6kg",c:"#eab308"},{n:"Med.Ball 8kg",c:"#ca8a04"}];
+  let WARMUPS=["Indoor Bike 5 Min","Jumping Jacks","Arm Kreise","Hüftkreise","Kniebeuge ohne Gewicht","Ausfallschritte","Schulterrotation","Cat-Cow","Kettlebell Swing leicht","Seilspringen","High Knees","Medizinball Kreise"];
+  let COOLDOWNS=["Indoor Bike locker 5 Min","Dehnung Oberschenkel vorne","Dehnung Oberschenkel hinten","Dehnung Brust","Dehnung Schultern","Dehnung Rücken","Dehnung Waden","Child's Pose","Foam Rolling","Dehnung Hüftbeuger","Dehnung Nacken","Tiefe Hocke halten"];
+  let wuDone=wo.warmup||[];
+  let cdDone=wo.cooldown||[];
+  return `<div style="font-size:12px;font-weight:700;color:#94a3b8;text-align:center;margin-bottom:8px">Woche ${wi.week}/12${wi.dl?" — DELOAD 🔄":""}</div>
+<div style="display:flex;gap:4px;margin-bottom:12px">${PD.map((d,i)=>`<button class="day-tab ${state.selDay===i?"active":""}" style="--c:${d.col}" onclick="state.selDay=${i};render()">${d.sh}</button>`).join("")}</div>
+<div style="font-size:16px;font-weight:800;color:${plan.col};margin-bottom:4px">${plan.name}</div>
+
+<!-- ENERGIE & TIMER -->
+<div class="card" style="margin-bottom:6px">
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+<div style="flex:1"><div style="font-size:9px;color:#64748b;margin-bottom:2px">ENERGIE VOR TRAINING</div>
+<div style="display:flex;gap:3px">${[1,2,3,4,5].map(v=>`<button onclick="updWoField('energy',${v})" style="width:28px;height:28px;border-radius:6px;border:none;cursor:pointer;font-size:12px;background:${(wo.energy||0)>=v?"#f59e0b":"#0f172a"};color:${(wo.energy||0)>=v?"#000":"#475569"}">${v<=2?"😴":v<=3?"😐":v<=4?"💪":"🔥"}</button>`).join("")}</div></div>
+<div style="flex:1"><div style="font-size:9px;color:#64748b;margin-bottom:2px">DAUER (MIN)</div>
+<input type="number" value="${wo.duration||""}" placeholder="z.B. 45" onchange="updWoField('duration',+this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#22d3ee;font-size:14px;font-weight:700;text-align:center"></div>
+</div></div>
+
+<!-- WARMUP -->
+<div class="card" style="margin-bottom:6px">
+<div style="font-size:10px;font-weight:700;color:#f59e0b;margin-bottom:4px">🔥 WARM-UP</div>
+<div style="display:flex;flex-wrap:wrap;gap:3px">${WARMUPS.map((w,i)=>`<button onclick="togWarmup(${i})" style="padding:4px 8px;border-radius:6px;border:none;cursor:pointer;font-size:9px;font-weight:600;background:${wuDone.includes(i)?"#854d0e":"#0f172a"};color:${wuDone.includes(i)?"#fbbf24":"#64748b"}">${wuDone.includes(i)?"✓ ":""}${w}</button>`).join("")}</div>
+</div>
+
+<!-- EXERCISES -->
+${plan.mov.map((mov,idx)=>{
+  let n=sets[idx],ex=exs[idx],opts=EX[mov]||[mov];
+  let bandCol=BANDS.find(b=>b.n===(ex.band||"Kein"));
+  // Last week's data for progression comparison
+  let prevWk="w"+(wi.week>1?wi.week-1:1)+"d"+state.selDay;
+  let prevWo=state.workouts[prevWk];
+  let prevEx=prevWo&&prevWo.exercises&&prevWo.exercises[idx]?prevWo.exercises[idx]:null;
+  let prevReps=prevEx&&prevEx.s?prevEx.s.filter(s=>s&&s.r).map(s=>s.r):[];
+  let prevBand=prevEx?prevEx.band||"Kein":"";
+  let prevAvg=prevReps.length?Math.round(prevReps.reduce((a,r)=>a+r,0)/prevReps.length):0;
+  // Current reps analysis
+  let curReps=ex.s?ex.s.filter(s=>s&&s.r).map(s=>s.r):[];
+  let curAvg=curReps.length?Math.round(curReps.reduce((a,r)=>a+r,0)/curReps.length):0;
+  let allMax=curReps.length>=n&&curReps.every(r=>r>=25);
+  let improved=curAvg>prevAvg&&prevAvg>0;
+  return `<div class="ex-card" style="border-left:3px solid ${plan.col}30"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px"><div style="font-size:9px;color:${plan.col};font-weight:600;text-transform:uppercase">${mov}${exDemo(ex.n)}</div><select onchange="updExField(${idx},'band',this.value)" style="padding:2px 4px;background:${bandCol?bandCol.c+"20":"#0f172a"};border:1px solid ${bandCol?bandCol.c:"#334155"};border-radius:4px;color:${bandCol?bandCol.c:"#64748b"};font-size:9px;font-weight:700">${BANDS.map(b=>`<option value="${b.n}"${(ex.band||"Kein")===b.n?" selected":""}>${b.n}</option>`).join("")}</select></div>
+<select onchange="updEx(${idx},this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;margin-bottom:3px">${opts.map(o=>`<option${o===ex.n?" selected":""}>${o}</option>`).join("")}</select>
+${prevReps.length?`<div style="font-size:8px;color:#64748b;margin-bottom:3px;padding:3px 6px;background:#0f172a;border-radius:4px">📊 Letzte Woche: ${prevReps.join(" · ")} Wdh${prevBand&&prevBand!=="Kein"?" · Band: "+prevBand:""} · Ø ${prevAvg}</div>`:""}
+<div style="font-size:9px;color:#64748b;margin-bottom:4px">${n} Sätze · 10–25 Wdh · RIR 0</div>
+<div style="display:flex;gap:5px;align-items:flex-start">${Array.from({length:n}).map((_,si)=>{let s=ex.s&&ex.s[si];let pR=prevReps[si];return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><button class="set-btn ${s&&s.d?"done":""}" onclick="togSet(${idx},${si})">${s&&s.d?"✓":si+1}</button><input type="number" placeholder="w" value="${s&&s.r?s.r:""}" onchange="setReps(${idx},${si},+this.value)" style="width:32px;text-align:center;padding:1px;font-size:9px;background:#0f172a;border:1px solid ${s&&s.r&&pR?(s.r>pR?"#22c55e":s.r<pR?"#f43f5e":"#334155"):"#1e293b"};border-radius:3px;color:${s&&s.r&&pR?(s.r>pR?"#22c55e":s.r<pR?"#f43f5e":"#94a3b8"):"#94a3b8"}">${pR?`<div style="font-size:7px;color:#475569;margin-top:1px">${pR}</div>`:""}</div>`;}).join("")}</div>
+${allMax?`<div style="margin-top:4px;padding:4px 8px;background:#854d0e;border-radius:6px;font-size:10px;color:#fbbf24;font-weight:700;text-align:center">⬆️ Alle Sätze 25+ Wdh — BAND STEIGERN!</div>`:""}
+${improved&&!allMax?`<div style="margin-top:4px;font-size:9px;color:#22c55e">📈 Gesteigert! Ø ${prevAvg} → ${curAvg} Wdh (+${curAvg-prevAvg})</div>`:""}
+</div>`;}).join("")}
+
+<!-- COOLDOWN -->
+<div class="card" style="margin-bottom:6px;margin-top:6px">
+<div style="font-size:10px;font-weight:700;color:#3b82f6;margin-bottom:4px">❄️ COOL-DOWN & DEHNUNG</div>
+<div style="display:flex;flex-wrap:wrap;gap:3px">${COOLDOWNS.map((c,i)=>`<button onclick="togCooldown(${i})" style="padding:4px 8px;border-radius:6px;border:none;cursor:pointer;font-size:9px;font-weight:600;background:${cdDone.includes(i)?"#1e3a5f":"#0f172a"};color:${cdDone.includes(i)?"#60a5fa":"#64748b"}">${cdDone.includes(i)?"✓ ":""}${c}</button>`).join("")}</div>
+</div>
+
+<!-- BEWERTUNG & NOTIZEN -->
+<div class="card" style="margin-bottom:6px">
+<div style="font-size:10px;font-weight:700;color:#64748b;margin-bottom:4px">⭐ BEWERTUNG</div>
+<div style="display:flex;gap:4px;margin-bottom:8px">${[1,2,3,4,5].map(v=>`<button onclick="updWoField('rating',${v})" style="font-size:22px;background:none;border:none;cursor:pointer;opacity:${(wo.rating||0)>=v?1:0.3}">${(wo.rating||0)>=v?"⭐":"☆"}</button>`).join("")}</div>
+<div style="font-size:9px;color:#64748b;margin-bottom:2px">MUSKELKATER</div>
+<input type="text" value="${wo.soreness||""}" placeholder="z.B. Beine, Schultern..." onchange="updWoField('soreness',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;margin-bottom:6px;box-sizing:border-box">
+<div style="font-size:9px;color:#64748b;margin-bottom:2px">BEMERKUNGEN</div>
+<textarea placeholder="Wie lief das Training? Was war gut/schlecht?" onchange="updWoField('note',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;min-height:50px;resize:vertical;box-sizing:border-box">${wo.note||""}</textarea>
+<div style="font-size:9px;color:#64748b;margin-bottom:2px;margin-top:6px">NÄCHSTES MAL STEIGERN</div>
+<input type="text" value="${wo.nextTime||""}" placeholder="z.B. Rotes Band bei Kniebeuge, +2 Wdh Liegestütze" onchange="updWoField('nextTime',this.value)" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#10b981;font-size:11px;box-sizing:border-box">
+</div>`;
+}
+function updWoField(field,val){
+  let wi=getWI(),plan=PD[state.selDay],wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""})),warmup:[],cooldown:[],note:"",energy:0,rating:0,duration:0,soreness:"",nextTime:""};
+  wo[field]=val;state.workouts[wk]=wo;saveWo();render();
+}
+function updExField(idx,field,val){
+  let wi=getWI(),plan=PD[state.selDay],wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""}))};
+  wo.exercises[idx][field]=val;state.workouts[wk]=wo;saveWo();render();
+}
+function togWarmup(i){
+  let wi=getWI(),wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:PD[state.selDay].mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""})),warmup:[],cooldown:[]};
+  if(!wo.warmup)wo.warmup=[];
+  let idx=wo.warmup.indexOf(i);if(idx>=0)wo.warmup.splice(idx,1);else wo.warmup.push(i);
+  state.workouts[wk]=wo;saveWo();render();
+}
+function togCooldown(i){
+  let wi=getWI(),wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:PD[state.selDay].mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[],band:""})),warmup:[],cooldown:[]};
+  if(!wo.cooldown)wo.cooldown=[];
+  let idx=wo.cooldown.indexOf(i);if(idx>=0)wo.cooldown.splice(idx,1);else wo.cooldown.push(i);
+  state.workouts[wk]=wo;saveWo();render();
+}
+function updEx(idx,val){
+  let wi=getWI(),plan=PD[state.selDay],wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[]}))};
+  wo.exercises[idx].n=val;state.workouts[wk]=wo;saveWo();render();
+}
+function togSet(ei,si){
+  let wi=getWI(),plan=PD[state.selDay],wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[]}))};
+  let s=wo.exercises[ei].s||[];if(!s[si])s[si]={d:false,r:0};s[si].d=!s[si].d;wo.exercises[ei].s=s;state.workouts[wk]=wo;saveWo();render();
+}
+function setReps(ei,si,v){
+  let wi=getWI(),plan=PD[state.selDay],wk="w"+wi.week+"d"+state.selDay;
+  let wo=state.workouts[wk]||{exercises:plan.mov.map(m=>({m:m,n:(EX[m]||[m])[0],s:[]}))};
+  let s=wo.exercises[ei].s||[];if(!s[si])s[si]={d:false,r:0};s[si].r=v;wo.exercises[ei].s=s;state.workouts[wk]=wo;saveWo();
+}
+
+function renderEssen(){
+  let tabs=[{k:"tag",l:"📅 Tagesplan"},{k:"woche",l:"📋 Wochenplan"},{k:"liste",l:"🛒 Einkauf"},{k:"alle",l:"📖 Rezepte"}];
+  let sub="";
+  if(state.eView==="tag"){
+    let dm=SLOTS.map(sl=>({...sl,meal:getMeal(state.date,sl.key)}));
+    let tot=dm.reduce((a,t)=>t.meal?{k:a.k+t.meal.k,p:a.p+t.meal.p,f:a.f+t.meal.f,c:a.c+t.meal.c}:a,{k:0,p:0,f:0,c:0});
+    sub=`<div class="date-nav"><button class="nav-btn" onclick="chDate(-1)">‹</button><div style="font-size:14px;font-weight:700">${fmtD(state.date)}</div><button class="nav-btn" onclick="chDate(1)">›</button></div>
+<div style="display:flex;justify-content:flex-end;margin-bottom:6px"><button class="btn-print" onclick="printDay()">🖨 Tag drucken</button></div>
+${dm.map(t=>`<div class="meal-card" onclick="state.pickSlot='${t.key}';state.pickDate=state.date;render()" style="border-left:3px solid ${t.col}"><div style="display:flex;gap:10px;align-items:center"><div class="meal-em">${t.meal?t.meal.em:"+"}</div><div style="flex:1"><div style="font-size:9px;color:${t.col};font-weight:600;text-transform:uppercase">${t.label}</div><div style="font-size:13px;font-weight:600;color:${t.meal?"#e2e8f0":"#475569"}">${t.meal?t.meal.n:"Tippen zum Auswählen..."}</div>${t.meal?`<div class="macros-sm"><span style="color:#e2e8f0;font-weight:700">${t.meal.k} kcal</span> <span style="color:#f43f5e">P:${t.meal.p}g</span> <span style="color:#f59e0b">F:${t.meal.f}g</span> <span style="color:#a78bfa">KH:${t.meal.c}g</span></div>`:""}</div><span style="color:#475569">›</span></div>${t.meal?`<div style="font-size:9px;color:#64748b;margin-top:5px;padding-left:54px">${t.meal.items.map(i=>i[0]+i[1]+" "+i[2]).join(" · ")}</div><div style="font-size:9px;color:#6ee7b7;margin-top:2px;padding-left:54px">👨‍🍳 ${t.meal.prep}</div><div style="padding-left:54px">${yazioBox(t.meal)}${rLink(t.meal.n)}</div>`:""}</div>`).join("")}
+${tot.k>0?`<div class="totals-bar"><div><div class="tot-val" style="color:${Math.abs(tot.k-getCT().kcal)<getCT().kcal*.1?"#22c55e":"#e2e8f0"}">${tot.k}</div><div class="tot-lbl">kcal</div></div><div><div class="tot-val" style="color:#f43f5e">${tot.p}g</div><div class="tot-lbl">Protein</div></div><div><div class="tot-val" style="color:#f59e0b">${tot.f}g</div><div class="tot-lbl">Fett</div></div><div><div class="tot-val" style="color:#a78bfa">${tot.c}g</div><div class="tot-lbl">KH</div></div></div>`:""}`;
+  }else if(state.eView==="woche"){
+    let wd=getWeekDates();
+    let filled=wd.filter(dt=>SLOTS.some(sl=>getMeal(dt,sl.key))).length;
+    let wkT=wd.reduce((a,dt)=>{SLOTS.forEach(sl=>{let m=getMeal(dt,sl.key);if(m){a.k+=m.k;a.p+=m.p;}});return a;},{k:0,p:0});
+    sub=`<div style="display:flex;gap:4px;margin-bottom:8px"><button class="btn-fill" onclick="autoFill()">✨ Woche füllen</button><button class="btn-clear" onclick="clearWeek()">🗑 Woche leeren</button><button class="btn-print" onclick="printWeek()">🖨</button></div>
+${filled>0?`<div class="totals-bar" style="margin-bottom:8px"><div><div class="tot-val" style="color:#6366f1">${Math.round(wkT.k/7)}</div><div class="tot-lbl">kcal/Tag</div></div><div><div class="tot-val" style="color:#f43f5e">${Math.round(wkT.p/7)}g</div><div class="tot-lbl">Protein/Tag</div></div><div><div class="tot-val" style="color:#10b981">${filled}/7</div><div class="tot-lbl">Tage geplant</div></div></div>`:""}
+${wd.map(dt=>{let dow=pD(dt).getDay(),dm=SLOTS.map(sl=>({key:sl.key,col:sl.col,meal:getMeal(dt,sl.key)}));let tot=dm.reduce((a,d)=>d.meal?a+d.meal.k:a,0);return `<div class="card" style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:12px;font-weight:700;color:${dt===new Date().toISOString().slice(0,10)?"#6366f1":"#e2e8f0"}">${DS[dow]} ${pD(dt).getDate()}.${pD(dt).getMonth()+1}.</span>${tot>0?`<span style="font-size:10px;color:#6366f1;font-weight:600">${tot} kcal</span>`:""}</div><div style="display:flex;gap:3px">${dm.map(d=>`<div class="week-slot" onclick="state.pickDate='${dt}';state.pickSlot='${d.key}';render()" style="border-bottom:2px solid ${d.meal?d.col:"transparent"}"><div style="font-size:16px">${d.meal?d.meal.em:"+"}</div><div style="font-size:7px;color:${d.meal?"#94a3b8":"#334155"};margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${d.meal?d.meal.n.split(" ")[0]:"—"}</div></div>`).join("")}</div></div>`;}).join("")}`;
+  }else if(state.eView==="liste"){
+    let dates=state.shopMode==="tag"?[state.date]:getWeekDates();
+    let list=getShopList(dates);
+    let cats={};list.forEach(it=>{let c=categ(it.name);if(!cats[c])cats[c]=[];cats[c].push(it);});
+    sub=`<div style="display:flex;gap:4px;margin-bottom:10px"><button class="shop-tab ${state.shopMode==="tag"?"active":""}" onclick="state.shopMode='tag';render()">Heute</button><button class="shop-tab ${state.shopMode==="woche"?"active":""}" onclick="state.shopMode='woche';render()">Ganze Woche</button></div>
+${list.length===0?`<div style="text-align:center;padding:30px;color:#475569;font-size:12px">Erst Mahlzeiten auswählen,<br>dann wird die Liste generiert.</div>`:""}
+${Object.entries(cats).sort().map(([cat,items])=>`<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:#94a3b8;margin-bottom:4px">${cat}</div>${items.map(it=>`<div class="shop-item"><span>${it.name}</span><span style="font-weight:700;color:#6366f1">${Math.round(it.amt*10)/10}${it.unit?" "+it.unit:""}</span></div>`).join("")}</div>`).join("")}`;
+  }else{
+    sub=SLOTS.map(sl=>`<div style="font-size:14px;font-weight:700;color:${sl.col};margin-bottom:6px;${sl.key!=="f"?"margin-top:12px":""};">${sl.label} (${R[sl.key].length})</div>${R[sl.key].map(r=>`<div class="recipe-card"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:24px">${r.em}</span><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#e2e8f0">${r.n}</div><div class="macros-sm"><span style="color:#e2e8f0;font-weight:700">${r.k}kcal</span> <span style="color:#f43f5e">P:${r.p}g</span> <span style="color:#f59e0b">F:${r.f}g</span> <span style="color:#a78bfa">KH:${r.c}g</span></div></div></div><div style="font-size:9px;color:#94a3b8;margin-top:4px">${r.items.map(i=>i[0]+i[1]+" "+i[2]).join(" · ")}</div><div style="font-size:9px;color:#6ee7b7;margin-top:2px">👨‍🍳 ${r.prep}</div><div style="font-size:9px;color:#f59e0b;margin-top:1px">💡 ${r.tip}</div>${yazioBox(r)}${rLink(r.n)}</div>`).join("")}`).join("");
+  }
+  return `<div style="display:flex;gap:3px;margin-bottom:12px">${tabs.map(t=>`<button class="essen-tab ${state.eView===t.k?"active":""}" onclick="state.eView='${t.k}';render()">${t.l}</button>`).join("")}</div>${sub}`;
+}
+
+function autoFill(){
+  let wd=getWeekDates();
+  wd.forEach(dt=>{SLOTS.forEach(sl=>{let k=dt+"-"+sl.key;if(!state.meals[k]){let arr=R[sl.key];state.meals[k]=arr[Math.floor(Math.random()*arr.length)].id;}});});
+  saveMeals();render();
+}
+function clearWeek(){
+  let wd=getWeekDates();
+  wd.forEach(dt=>{SLOTS.forEach(sl=>{delete state.meals[dt+"-"+sl.key];});});
+  saveMeals();render();
+}
+
+function renderPicker(){
+  let recipes=R[state.pickSlot],sl=SLOTS.find(s=>s.key===state.pickSlot),dt=state.pickDate||state.date;
+  let cur=getMeal(dt,state.pickSlot);
+  return `<div class="picker-hdr"><button class="nav-btn" onclick="state.pickSlot=null;state.pickDate=null;render()">← Zurück</button><span style="font-size:13px;font-weight:700;color:${sl.col}">${sl.label}</span><span style="font-size:10px;color:#64748b">${fmtD(dt)}</span></div>
+<div style="padding:10px 14px">${recipes.map(r=>{let isSel=cur&&cur.id===r.id;return `<div class="pick-card ${isSel?"sel":""}" onclick="state.meals['${dt}-${state.pickSlot}']='${r.id}';saveMeals();state.pickSlot=null;state.pickDate=null;render()"><div style="display:flex;gap:10px;align-items:center"><div class="meal-em">${r.em}</div><div style="flex:1"><div style="font-size:14px;font-weight:700;color:#e2e8f0">${r.n}${isSel?" ✓":""}</div><div class="macros-sm" style="margin-top:3px"><span style="color:#e2e8f0;font-weight:700">${r.k} kcal</span> <span style="color:#f43f5e">P:${r.p}g</span> <span style="color:#f59e0b">F:${r.f}g</span> <span style="color:#a78bfa">KH:${r.c}g</span></div></div></div><div style="font-size:10px;color:#94a3b8;margin-top:6px;padding-left:58px">📝 ${r.items.map(i=>i[0]+i[1]+" "+i[2]).join(" · ")}</div><div style="font-size:10px;color:#6ee7b7;margin-top:3px;padding-left:58px">👨‍🍳 ${r.prep}</div><div style="font-size:10px;color:#f59e0b;margin-top:2px;padding-left:58px">💡 ${r.tip}</div><div style="padding-left:58px">${yazioBox(r)}${rLink(r.n)}</div></div>`;}).join("")}</div>`;
+}
+
+function renderStats(wi,ct){
+  let wd=Object.entries(state.logs).filter(([_,l])=>l.weight>0).sort(([a],[b])=>a.localeCompare(b));
+  let dl=Object.keys(state.logs).length;
+  let tr=Object.values(state.logs).filter(l=>l.trained).length;
+  let stA=Object.values(state.logs).filter(l=>l.steps>0);
+  let avgS=stA.length?stA.reduce((a,l)=>a+l.steps,0)/stA.length:0;
+  let sW=wd[0]?wd[0][1].weight:90,cW=wd.length?wd[wd.length-1][1].weight:90;
+  let badges=getBadges();
+  // Weight chart
+  let chartH="";
+  if(wd.length>1){
+    let mn=Math.min(...wd.map(e=>e[1].weight))-1,mx=Math.max(...wd.map(e=>e[1].weight))+1;
+    let pts=wd.map((e,i)=>{let x=10+i*(280/(wd.length-1));let y=140-(e[1].weight-mn)/(mx-mn)*120;return x+","+y;}).join(" ");
+    chartH=`<div class="card" style="margin-bottom:8px"><div class="section-hdr">GEWICHTSVERLAUF</div><svg viewBox="0 0 300 160" style="width:100%;height:auto"><polyline points="${pts}" fill="none" stroke="#6366f1" stroke-width="2"/>${wd.map((e,i)=>{let x=10+i*(280/(wd.length-1));let y=140-(e[1].weight-mn)/(mx-mn)*120;return `<circle cx="${x}" cy="${y}" r="3" fill="#6366f1"/>`;}).join("")}<text x="5" y="15" fill="#64748b" font-size="8">${mx.toFixed(1)}</text><text x="5" y="145" fill="#64748b" font-size="8">${mn.toFixed(1)}</text></svg></div>`;
+  }
+  // Calendar heatmap (last 5 weeks)
+  let calH="";
+  if(state.config){
+    let today2=new Date();let calDays=[];
+    for(let i=34;i>=0;i--){let d=new Date(today2);d.setDate(d.getDate()-i);calDays.push(fmt(d));}
+    calH=`<div class="card" style="margin-bottom:8px"><div class="section-hdr">📅 KALENDER (5 Wochen)</div>
+<div style="display:flex;gap:1px;margin-bottom:2px">${["M","D","M","D","F","S","S"].map(d=>`<div style="flex:1;text-align:center;font-size:7px;color:#475569">${d}</div>`).join("")}</div>
+<div style="display:flex;flex-wrap:wrap;gap:1px">${calDays.map(dt=>{let l=state.logs[dt];let score=0;if(l){if(l.kcal>0)score++;if(l.protein>=180)score++;if(l.trained)score++;if(l.steps>=9000)score++;if(l.sleep>=7)score++;}
+let bg=score===0?"#0f172a":score<=2?"#1e3a5f":score<=3?"#1d4ed8":score<=4?"#059669":"#22c55e";
+return `<div style="width:calc(14.28% - 1px);aspect-ratio:1;background:${bg};border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:7px;color:${score>0?"#fff":"#334155"}">${pD(dt).getDate()}</div>`;}).join("")}</div>
+<div style="display:flex;gap:4px;justify-content:center;margin-top:4px;font-size:7px;color:#64748b">${[["#0f172a","Leer"],["#1e3a5f","1-2"],["#1d4ed8","3"],["#059669","4"],["#22c55e","5/5"]].map(([c,l])=>`<div style="display:flex;align-items:center;gap:2px"><div style="width:8px;height:8px;background:${c};border-radius:2px"></div>${l}</div>`).join("")}</div></div>`;
+  }
+  // Weekly report
+  let repH="";
+  let weekDts2=getWeekDates();
+  let wLogs=weekDts2.map(dt=>state.logs[dt]).filter(Boolean);
+  if(wLogs.length>0){
+    let wAvg={kcal:0,prot:0,steps:0,sleep:0,water:0,trains:0};
+    wLogs.forEach(l=>{wAvg.kcal+=l.kcal;wAvg.prot+=l.protein;wAvg.steps+=l.steps;wAvg.sleep+=l.sleep;wAvg.water+=l.water;if(l.trained)wAvg.trains++;});
+    let n=wLogs.length;
+    repH=`<div class="card" style="margin-bottom:8px"><div class="section-hdr">📊 WOCHEN-REPORT</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">${[
+  ["Ø Kalorien",Math.round(wAvg.kcal/n),Math.abs(Math.round(wAvg.kcal/n)-ct.kcal)<ct.kcal*.1?"#22c55e":"#f43f5e"],
+  ["Ø Protein",Math.round(wAvg.prot/n)+"g",Math.round(wAvg.prot/n)>=180?"#22c55e":"#f43f5e"],
+  ["Ø Schritte",Math.round(wAvg.steps/n),Math.round(wAvg.steps/n)>=9000?"#22c55e":"#f43f5e"],
+  ["Ø Schlaf",(wAvg.sleep/n).toFixed(1)+"h",wAvg.sleep/n>=7?"#22c55e":"#f43f5e"],
+  ["Ø Wasser",(wAvg.water/n).toFixed(1)+"L",wAvg.water/n>=3.5?"#22c55e":"#f43f5e"],
+  ["Trainings",wAvg.trains+"x","#6366f1"],
+].map(([l,v,c])=>`<div style="background:#0f172a;border-radius:6px;padding:6px;text-align:center"><div style="font-size:14px;font-weight:800;color:${c}">${v}</div><div style="font-size:7px;color:#64748b">${l}</div></div>`).join("")}</div></div>`;
+  }
+  // Measurements
+  let mKey="w"+wi.week;
+  let ms=state.measures[mKey]||{};
+  let MFIELDS=[["Brust","brust"],["Taille","taille"],["Bauch","bauch"],["Hüfte","huefte"],["Oberarm L","armL"],["Oberarm R","armR"],["Oberschenkel L","beinL"],["Oberschenkel R","beinR"]];
+  let measH=`<div class="card" style="margin-bottom:8px"><div class="section-hdr">📏 KÖRPERMASSE (Woche ${wi.week})</div>
+${MFIELDS.map(([label,key])=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid #0f172a"><span style="font-size:11px;color:#94a3b8">${label}</span><div style="display:flex;align-items:center;gap:4px"><input type="number" value="${ms[key]||""}" placeholder="cm" onchange="setMeasure('${mKey}','${key}',+this.value)" style="width:50px;text-align:center;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#22d3ee;font-size:12px;font-weight:700;padding:3px 0"><span style="font-size:9px;color:#475569">cm</span></div></div>`).join("")}</div>`;
+
+  return `<div style="font-size:16px;font-weight:800;margin-bottom:10px">Fortschritt</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:8px">${[["Tage",dl,"#6366f1"],["Trainings",tr,"#10b981"],["Gewicht Δ",(cW-sW).toFixed(1)+"kg",cW<=sW?"#22c55e":"#f43f5e"],["Ø Schritte",Math.round(avgS),"#f59e0b"],["Streak",getStreak()+"🔥","#f59e0b"],["Badges",badges.length+"🏆","#a855f7"]].map(([l,v,c])=>`<div class="stat-card"><div style="font-size:16px;font-weight:800;color:${c}">${v}</div><div style="font-size:9px;color:#64748b">${l}</div></div>`).join("")}</div>
+${chartH}${calH}${repH}
+${badges.length?`<div class="card" style="margin-bottom:8px"><div class="section-hdr">🏆 BADGES</div><div style="display:flex;flex-wrap:wrap;gap:4px">${badges.map(b=>`<div style="background:#0f172a;border-radius:8px;padding:6px 8px;text-align:center;width:calc(33% - 4px)"><div style="font-size:20px">${b.em}</div><div style="font-size:9px;font-weight:700;color:#e2e8f0">${b.n}</div><div style="font-size:7px;color:#64748b">${b.d}</div></div>`).join("")}</div></div>`:""}
+${measH}
+<div class="card" style="margin-bottom:8px"><div class="section-hdr">ZIELWERTE WOCHE ${wi.week}</div>${[["Kalorien",ct.kcal,"#6366f1"],["Protein","200g","#f43f5e"],["Fett","53g","#f59e0b"],["KH",ct.carbs+"g","#a78bfa"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;padding:3px 0"><span style="font-size:11px;color:#94a3b8">${l}</span><span style="font-size:11px;font-weight:700;color:${c}">${v}</span></div>`).join("")}</div>
+<button class="btn-reset" onclick="state.page='cfg';render()">⚙️ Einstellungen & Daten</button>`;
+}
+
+function renderCfg(){
+  let cfg=state.config||{};
+  let eq=cfg.equipment||{};
+  let ALL_EQ=[
+    {id:"band",n:"Widerstandsbänder",em:"🟥"},
+    {id:"kh",n:"Kurzhanteln",em:"🏋️"},
+    {id:"kb",n:"Kettlebell",em:"🔔"},
+    {id:"mb",n:"Medizinbälle",em:"⚾"},
+    {id:"pullup",n:"Klimmzugstange",em:"🏗️"},
+    {id:"bike",n:"Indoor Bike",em:"🚴"},
+    {id:"ball",n:"Gymnastikball",em:"🟣"},
+    {id:"matte",n:"Yogamatte",em:"🧘"},
+    {id:"straps",n:"Ab-Straps",em:"🔗"},
+  ];
+  let h=cfg.height||175,w=cfg.weight||90,age=cfg.age||44,act=cfg.activity||"buero3",name=cfg.name||"";
+  return `<div style="font-size:16px;font-weight:800;margin-bottom:10px">⚙️ Einstellungen</div>
+<div class="card" style="margin-bottom:8px">
+<div class="section-hdr">👤 PROFIL</div>
+<div style="margin-bottom:4px"><span style="font-size:10px;color:#64748b">Name</span><input id="sName" type="text" value="${name}" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:13px;box-sizing:border-box"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+<div><span style="font-size:10px;color:#64748b">Größe cm</span><input id="sH" type="number" value="${h}" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#22d3ee;font-weight:700;font-size:13px;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Gewicht kg</span><input id="sW" type="number" value="${w}" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#22d3ee;font-weight:700;font-size:13px;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Alter</span><input id="sAge" type="number" value="${age}" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#22d3ee;font-weight:700;font-size:13px;box-sizing:border-box"></div>
+<div><span style="font-size:10px;color:#64748b">Aktivität</span><select id="sAct" style="width:100%;padding:6px;background:#0f172a;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:11px;box-sizing:border-box">
+<option value="buero3"${act==="buero3"?" selected":""}>Büro+3×</option>
+<option value="buero5"${act==="buero5"?" selected":""}>Büro+5×</option>
+<option value="aktiv3"${act==="aktiv3"?" selected":""}>Aktiv+3×</option>
+<option value="aktiv5"${act==="aktiv5"?" selected":""}>Aktiv+5×</option>
+</select></div></div></div>
+
+<div class="card" style="margin-bottom:8px">
+<div class="section-hdr">🏠 EQUIPMENT</div>
+<div style="display:flex;flex-wrap:wrap;gap:4px">${ALL_EQ.map(e=>`<button id="seq_${e.id}" onclick="document.getElementById('seq_${e.id}').classList.toggle('on');document.getElementById('seq_${e.id}').dataset.v=document.getElementById('seq_${e.id}').classList.contains('on')?'1':'0'" class="toggle-btn ${eq[e.id]?"on":""}" data-v="${eq[e.id]?"1":"0"}" style="padding:6px 10px;font-size:10px">${e.em} ${e.n}</button>`).join("")}</div></div>
+
+<button class="btn-primary" onclick="updateSettings()" style="margin-bottom:8px">💾 Speichern & Neu berechnen</button>
+
+<div id="cfgMsg" style="font-size:11px;color:#6ee7b7;display:none;margin-bottom:8px;text-align:center"></div>
+
+<div class="card" style="margin-bottom:8px">
+<div class="section-hdr">📊 AKTUELLE ZIELWERTE</div>
+<div style="font-size:10px;color:#64748b;margin-bottom:4px">BMR: ${Math.round(10*w+6.25*h-5*age+5)} kcal · Basis-Kalorien: ${cfg.targets?cfg.targets.kcal:"?"} kcal</div>
+${cfg.targets?[["Kalorien",cfg.targets.kcal+" kcal","#6366f1"],["Protein",cfg.targets.protein+" g","#f43f5e"],["Fett",cfg.targets.fat+" g","#f59e0b"],["KH",cfg.targets.carbs+" g","#a78bfa"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;padding:3px 0"><span style="font-size:11px;color:#94a3b8">${l}</span><span style="font-size:11px;font-weight:700;color:${c}">${v}</span></div>`).join(""):""}
+<div style="font-size:9px;color:#64748b;margin-top:4px">W5-8: −5% · W9-12: −10% (automatisch)</div></div>
+
+<div class="card"><div class="section-hdr">DATEN SICHERN & LADEN</div>
+<p style="font-size:10px;color:#64748b;margin-bottom:6px">Exportiere deine Daten vor Updates.</p>
+<div style="display:flex;gap:4px;margin-bottom:6px"><button class="btn-fill" onclick="exportData()" style="font-size:11px">📤 Export</button><button class="btn-fill" onclick="document.getElementById('impFile2').click()" style="font-size:11px;background:#1e3a5f;color:#93c5fd">📥 Import</button></div>
+<input type="file" id="impFile2" accept=".json" style="display:none" onchange="importData(this)">
+<div id="exportMsg2" style="font-size:10px;color:#6ee7b7;display:none;margin-top:4px"></div></div>
+
+<button class="btn-reset" style="margin-top:8px" onclick="if(confirm('Alle Daten löschen und neu starten?')){state={page:'dash',config:null,date:new Date().toISOString().slice(0,10),logs:{},workouts:{},meals:{},measures:{},selDay:0,eView:'tag',shopMode:'woche',pickSlot:null,pickDate:null};['90tc-c','90tc-l','90tc-w','90tc-m','90tc-ms'].forEach(async k=>{try{await window.storage.delete(k)}catch(e){}});render();}">🗑 Alles zurücksetzen</button>`;
+}
+function updateSettings(){
+  let h=+document.getElementById('sH').value||175;
+  let w=+document.getElementById('sW').value||90;
+  let age=+document.getElementById('sAge').value||44;
+  let act=document.getElementById('sAct').value||"buero3";
+  let name=document.getElementById('sName').value||"";
+  let eq={};
+  ["band","kh","kb","mb","pullup","bike","ball","matte","straps"].forEach(function(id){
+    let el=document.getElementById('seq_'+id);eq[id]=el&&el.dataset.v==="1";
+  });
+  let bmr=Math.round(10*w+6.25*h-5*age+5);
+  let factors={"buero3":1.55,"buero5":1.65,"aktiv3":1.7,"aktiv5":1.8};
+  let tdee=Math.round(bmr*(factors[act]||1.55));
+  let deficit=Math.round(tdee*0.85);
+  let protein=Math.round(w*2.2);
+  let fat=Math.round(deficit*0.2/9);
+  let carbs=Math.round((deficit-protein*4-fat*9)/4);
+  state.config.name=name;state.config.height=h;state.config.weight=w;state.config.age=age;
+  state.config.activity=act;state.config.equipment=eq;
+  state.config.targets={kcal:deficit,protein:protein,fat:fat,carbs:carbs};
+  saveConfig();render();
+}
+
+async function exportData(){
+  let data={config:state.config,logs:state.logs,workouts:state.workouts,meals:state.meals,measures:state.measures,version:3,exported:new Date().toISOString()};
+  let json=JSON.stringify(data,null,2);
+  let blob=new Blob([json],{type:'application/json'});
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement('a');
+  a.href=url;a.download='90tc-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  let msg=document.getElementById('exportMsg');
+  if(msg){msg.textContent='✅ Backup gespeichert!';msg.style.display='block';}
+}
+
+function importData(input){
+  if(!input.files||!input.files[0])return;
+  let reader=new FileReader();
+  reader.onload=async function(e){
+    try{
+      let data=JSON.parse(e.target.result);
+      if(data.config)state.config=data.config;
+      if(data.logs)state.logs=data.logs;
+      if(data.workouts)state.workouts=data.workouts;
+      if(data.meals)state.meals=data.meals;
+      if(data.measures)state.measures=data.measures;
+      await saveConfig();await saveLogs();await saveWo();await saveMeals();await saveMeasures();
+      let msg=document.getElementById('exportMsg');
+      if(msg){msg.textContent='✅ '+Object.keys(state.logs).length+' Tage, '+Object.keys(state.meals).length+' Mahlzeiten importiert!';msg.style.display='block';msg.style.color='#6ee7b7';}
+      render();
+    }catch(err){
+      let msg=document.getElementById('exportMsg');
+      if(msg){msg.textContent='❌ Fehler beim Import: '+err.message;msg.style.display='block';msg.style.color='#f43f5e';}
+    }
+  };
+  reader.readAsText(input.files[0]);
+  input.value='';
+}
+
+// ═══════════════ PWA INSTALL ═══════════════
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredPrompt=e;showInstallBanner();});
+function showInstallBanner(){
+  if(document.getElementById('installBanner'))return;
+  let b=document.createElement('div');b.id='installBanner';
+  b.style.cssText='position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#6366f1,#4f46e5);padding:12px 14px;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:8px;';
+  b.innerHTML='<div style="flex:1"><div style="font-size:13px;font-weight:700;color:white">📱 Als App installieren</div><div style="font-size:10px;color:#c7d2fe">Schnellzugriff vom Homescreen</div></div><button onclick="installApp()" style="padding:8px 16px;background:white;border:none;border-radius:8px;color:#4f46e5;font-weight:700;font-size:12px;cursor:pointer">Installieren</button><button onclick="this.parentElement.remove()" style="background:none;border:none;color:#c7d2fe;font-size:18px;cursor:pointer;padding:4px">×</button>';
+  document.body.prepend(b);
+}
+function installApp(){
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(function(){deferredPrompt=null;let b=document.getElementById('installBanner');if(b)b.remove();});}
+}
+// Service Worker für Offline
+if('serviceWorker' in navigator){
+  let swCode='self.addEventListener("install",function(e){self.skipWaiting();});self.addEventListener("activate",function(e){e.waitUntil(clients.claim());});self.addEventListener("fetch",function(e){e.respondWith(caches.match(e.request).then(function(r){return r||fetch(e.request).then(function(res){return caches.open("90tc-v1").then(function(cache){cache.put(e.request,res.clone());return res;});}).catch(function(){return new Response("Offline");});}));});';
+  let swBlob=new Blob([swCode],{type:'application/javascript'});
+  let swUrl=URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(function(){});
+}
+
+load();
+</script></body></html>
