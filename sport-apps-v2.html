@@ -582,6 +582,129 @@ const GK_REZEPTE = [
    zut:"10g Backkakao · 1 TL Backpulver · 1 TL Puddingpulver · 5g Schoko-Chunks · 45g Designer Whey Vanille · 100g Mandelmilch · 1 Kugel Vanilleeis",
    zub:"1. Kakao, Backpulver, Puddingpulver, Whey und Mandelmilch in kleiner Backform mischen. 2. Konsistenz soll puddingartig sein. 3. 5-10 Min bei 180°C – je kürzer, desto flüssiger der Kern. 4. Mit Vanilleeis servieren."}
 ];
+
+const SS_REZEPTE = [
+  {n:"Kritharaki-Feta-Pfanne",em:"🍝",kcal:754,p:60,kh:71,f:24,port:"1 Portion",
+   zut:"200g Feta light · 500g Rinderhack (fettreduziert) · 400g stückige Tomaten · 125g Creme leicht · 250g Kritharaki · 1 rote Zwiebel · 3 Zehen Knoblauch",
+   zub:"Zwiebel und Knoblauch anbraten, Hack dazu und krümelig braten. Tomaten, Creme und Kritharaki dazu geben. Köcheln lassen bis die Pasta gar ist. Feta darüber geben und unterrühren."},
+  {n:"Zucchini-Hack-Pfanne",em:"🥒",kcal:720,p:45,kh:96,f:15,port:"1 Portion",
+   zut:"1 Zucchini · ½ Zwiebel · 1 Möhre · 150g mageres Rinderhack · 100g Reis · 75ml Kochsahne light · 1 TL Senf · Salz, Cayennepfeffer, Paprikapulver",
+   zub:"Hack anbraten, Zwiebel, Möhre und Zucchini dazu. Reis kochen. Mit Kochsahne und Senf ablöschen und würzen. Reis untermengen."},
+  {n:"Maultaschen in Tomatensoße",em:"🍅",kcal:292,p:15,kh:27,f:9,port:"1 Portion (von 2)",
+   zut:"2 Zehen Knoblauch · 1 Chili · 6x Gemüse Maultaschen · 250ml Kochsahne light · 1 Tomate · 2 EL Tomatenmark · 125g Mozzarella light · Salz, Basilikum",
+   zub:"Knoblauch und Chili anbraten. Tomatenmark und stückige Tomaten dazu. Kochsahne dazu, würzen. Maultaschen darin erwärmen, Mozzarella drüber und schmelzen lassen."},
+  {n:"Maultaschen überbacken",em:"🧀",kcal:649,p:48,kh:53,f:25,port:"1 Portion",
+   zut:"360g Maultaschen · 1 rote Zwiebel · 1 Zehe Knoblauch · 100g Cherrytomaten · 400g passierte Tomaten · 200g körniger Frischkäse · 100g Reibekäse light · Petersilie · Salz, Oregano, Basilikum, Chiliflocken",
+   zub:"Tomatensoße aus Zwiebel, Knoblauch, Tomaten und Frischkäse zubereiten. Maultaschen in Auflaufform geben, Soße darüber, Reibekäse drauf. Überbacken bis golden."},
+  {n:"Hähnchen-Erdnuss-Curry",em:"🍛",kcal:683,p:53,kh:90,f:9,port:"1 Portion (von 3)",
+   zut:"1 Zwiebel · 3 Zehen Knoblauch · Ingwer · 450g Hähnchenbrust · 2 EL Currypaste gelb · Wasser · 400g Brokkoli · 1 rote Paprika · 1 Lauchzwiebel · 1 EL Sojasauce · 1 TL Honig · 2 EL Erdnussbutter · ½ TL Sambal Oelek · Spritzer Zitronensaft · 300g Reis",
+   zub:"Zwiebel und Knoblauch anbraten. Hähnchen salzen und 2 Min. je Seite braten. Currypaste dazu, mit Wasser bedecken und 1 Stunde kochen. Reis separat kochen. Gemüse klein schneiden, Erdnussbutter-Dressing aus Sojasauce, Honig, Sambal und Zitronensaft machen. Alles anrichten."},
+  {n:"Kartoffel-Hack-Avocado-Bowl",em:"🥑",kcal:646,p:45,kh:54,f:20,port:"1 Portion",
+   zut:"300g Kartoffeln · 1 rote Zwiebel · ½ Avocado · 1 Zehe Knoblauch · 100g Tomaten · 125g Rinderhack (fettreduziert) · 30g Reibekäse light · 30g Joghurt · ½ Zitrone · Petersilie · Salz, Paprikapulver, Pfeffer",
+   zub:"Kartoffeln im Ofen rösten. Hack mit Zwiebel und Knoblauch anbraten. Joghurt mit Zitronensaft und Gewürzen zum Dip mischen. Bowl anrichten: Kartoffeln, Hack, Avocado, Tomaten, Dip, Reibekäse."},
+  {n:"Protein-Waffeln",em:"🧇",kcal:514,p:58,kh:33,f:16,port:"6-7 Waffeln gesamt",
+   zut:"100g Magerquark · 50ml Mandelmilch · 40g Protein Pulver · 30g Mehl oder gemahlene Haferflocken · 2 Eier · 1 TL Backpulver · 1 EL Erythrit · Ahornsirup zum Toppen",
+   zub:"Eier trennen. Eiklar steif schlagen. Eigelb mit Quark, Mandelmilch, Proteinpulver, Mehl, Backpulver und Erythrit vermengen. Eischnee vorsichtig unterheben. Im Waffeleisen backen."},
+  {n:"Pulled Chicken Burger",em:"🍔",kcal:295,p:29,kh:34,f:3,port:"1 Burger (von 6)",
+   zut:"3 Zwiebeln · 3 Zehen Knoblauch · 400g Hähnchen · 1 EL Honig · 1 TL Tabasko · 2 EL Balsamico Essig · 1 EL Worcester Sauce · 6 EL Tomaten Ketchup Light · 3 EL BBQ Sauce Light · 700ml Wasser · Salz, rauchige Paprika · 6 Burger Buns · 150g Eisbergsalat · ½ rote Zwiebel · 6 Gurkenscheiben",
+   zub:"Hähnchen mit allen Soßen und Gewürzen in Wasser aufkochen. 1 Stunde kochen (oder 30 Min. im Schnellkochtopf). Danach zerzupfen und weiter in der Soße einkochen bis Flüssigkeit aufgenommen. In Burger Buns mit Salat und Gurke servieren."},
+  {n:"Kartoffel-Bacon-Skyr-Bowl",em:"🥓",kcal:617,p:47,kh:57,f:20,port:"1 Portion",
+   zut:"300g Kartoffeln · 3 Scheiben Bacon · 30g Reibekäse light · 20g Cheddar · 200g Skyr · 2 EL Mayo light · 1 EL Kräuterfrischkäse light · 1 EL Essig · Salz, Knoblauchgewürz, Paprikapulver",
+   zub:"Kartoffeln klein schneiden, mit Bacon und Gewürzen 20 Minuten bei 200 Grad Umluft backen. Skyr-Dressing aus Skyr, Mayo, Frischkäse, Essig und Gewürzen mischen. Bowl anrichten."},
+  {n:"High Protein Frühstücks-Tacos",em:"🌮",kcal:472,p:37,kh:6,f:29,port:"1 Portion",
+   zut:"3 Eier · 100g körniger Frischkäse light · 20g Cheddar · 50g Avocado · 50g Tomate · Petersilie · Salz, Pfeffer",
+   zub:"Eier verquirlen, mit Frischkäse und Cheddar vermischen. In Förmchen füllen und 10-15 Minuten bei 200 Grad Umluft backen. Mit Avocado, Tomate und Petersilie belegen."},
+  {n:"Milchreis-Blaubeeren-Bowl",em:"🫐",kcal:463,p:22,kh:72,f:6,port:"1 Portion (von 3)",
+   zut:"220g Milchreis · 1 Liter Mandelmilch · 1 EL Erythrit · Schluck Wasser · 500g Blaubeeren · 60g Whey Protein",
+   zub:"Milchreis mit Mandelmilch und Erythrit kochen. Nach dem Kochen Whey Protein untermischen. Mit Blaubeeren anrichten."},
+  {n:"Hirtenkäse-Ei-Toast",em:"🍳",kcal:650,p:47,kh:42,f:31,port:"1 Portion (von 2)",
+   zut:"6 Eier · 150g Hirtenkäse Light · 100g rote Paprika · 4 Scheiben Toast · Schnittlauch · Salz, Pfeffer, Oregano",
+   zub:"Eier mit Hirtenkäse, Paprika und Gewürzen vermengen. Auf Toastbrot geben. 200 Grad Umluft für 15 Minuten backen. Mit Schnittlauch garnieren."},
+  {n:"Hähnchen-Tomaten-Reis-Auflauf",em:"🍗",kcal:841,p:67,kh:95,f:17,port:"1 Portion (von 2)",
+   zut:"250g Reis · 1 EL Tomatenmark · 200g Kräuter Frischkäse Light · 300g Hähnchen · 1 Zehe Knoblauch · 150g Cocktail Tomaten · 250ml Kochsahne 7% · Salz, Pfeffer, Basilikum",
+   zub:"Hähnchen, Tomatenmark, Frischkäse, Sahne und Gewürze in einer Auflaufform mischen. Reis einrühren. Bei 180 Grad Umluft erst 10 Min. backen, dann Parmesan drüber, dann weitere 20 Min."},
+  {n:"Gyros-Hähnchen-Kartoffel-Pfanne",em:"🥙",kcal:763,p:75,kh:85,f:10,port:"1 Portion",
+   zut:"100g Cocktailtomaten · 200g Eisbergsalat · 250g Hähnchenbrust · 400g Kartoffeln · 70g Paprika gelb · 50g Joghurt 1,5% · 3 EL Ketchup light · 2 EL Mayo Light · 1 TL Öl · 5g Parmesan · 2 EL Gurkenwasser · 1 Zehe Knoblauch · Salz, Pfeffer, Gyrosgewürz, Tabasco",
+   zub:"Hähnchen und Kartoffeln mit Gyrosgewürz würzen, 20 Minuten bei 200 Grad Umluft backen. Tzatziki-Soße aus Joghurt, Mayo, Ketchup, Knoblauch und Gurkenwasser mischen. Alles anrichten."},
+  {n:"Protein Overnight Oats",em:"🥣",kcal:546,p:43,kh:55,f:14,port:"1 Portion (von 4)",
+   zut:"50g Whey Protein · 200g Haferflocken · 500g Joghurt · 500g Magerquark · 40g Cranberrys · 20g Erdnussbutter · 40g Heidelbeeren · 40g Himbeeren · 30g Walnüsse · 300ml Milch · 300ml Wasser · 30g Oreo",
+   zub:"Quark, Joghurt, Whey und Haferflocken mit Milch und Wasser vermischen. Auf 4 Gläser verteilen. Beeren, Erdnussbutter, Walnüsse und zerbröckelten Oreo als Topping. Über Nacht kühlen."},
+  {n:"Burrata-Kartoffel-Bowl",em:"🧆",kcal:963,p:73,kh:53,f:49,port:"1 Portion",
+   zut:"300g Kartoffeln · 4 Salatblätter · 125g Burrata · 300g Hüttenkäse Light · 2 Eier · 100g Tomaten · 10g Zwiebel · 1 EL Balsamico · Salz, Pfeffer",
+   zub:"Kartoffeln bei 200 Grad Umluft für 20 Minuten backen. Eier kochen. Bowl anrichten: Salatblätter, Kartoffeln, Hüttenkäse, Eier, Tomaten, Burrata. Mit Balsamico und Salz abschmecken."},
+  {n:"Hähnchen-Coleslaw-Wraps",em:"🌯",kcal:412,p:39,kh:30,f:13,port:"1 Wrap (von 4)",
+   zut:"4 Protein Wraps · 400g Hähnchenbrust · 400g Rotkohl · 200g Eisbergsalat · 2 EL Weißweinessig · 50g Miracle Whip (Balance) · 1 TL Zucker · 1 rote Zwiebel · 40g Ajvar scharf · 150g Joghurt 1,5% · Knoblauchgewürz, Salz, Pfeffer",
+   zub:"Hähnchen ca. 45 Minuten bei 180 Grad Umluft in den Ofen. Flüssigkeit abkippen und kleinschneiden. Rotkohl mit Essig, Zucker und Zwiebel mischen. Joghurt-Ajvar-Dressing anrühren. Wraps füllen."},
+  {n:"Protein-Snickers-Kuchen",em:"🍫",kcal:221,p:12,kh:30,f:4,port:"1 Stück (von 6)",
+   zut:"½ Süßkartoffel · 2 Bananen · 50g Magerquark · 100g Haferflocken (gemahlen) · 50g Whey Protein · 10g Backkakao · 1 Pack Backpulver · 1 EL Erdnussbutter · 30g Datteln · 10g Erdnüsse · 10g Schoko Chunks",
+   zub:"Süßkartoffel garen und pürieren. Mit Bananen, Quark, Haferflocken, Whey, Kakao und Backpulver vermengen. In Backform füllen, Erdnussbutter, Datteln, Erdnüsse und Schoko Chunks obendrauf. 170 Grad Umluft für 20-30 Minuten backen."},
+  {n:"Protein-Carbonara",em:"🍜",kcal:1037,p:63,kh:121,f:33,port:"1 Portion",
+   zut:"150g Nudeln · ½ Zwiebel · 3 Scheiben Bacon · 150ml Kochsahne 7% · 1 Eigelb · 20g Parmesan · 40g neutrales Proteinpulver · Salz, Pfeffer",
+   zub:"Nudeln al dente kochen. Bacon und Zwiebel anbraten. Kochsahne, Eigelb, Parmesan und Proteinpulver zur Sauce mischen. Pfanne ausschalten, Sauce dazu geben und gut durchmengen. Sofort servieren."},
+  {n:"Kartoffel-Schinken-Quark",em:"🥚",kcal:1260,p:101,kh:91,f:53,port:"1 Portion",
+   zut:"500g Kartoffeln · 100g magere Schinkenwürfel · 1 kleine Zwiebel · 4 Eier · 250g Magerquark · 100g Kräuter Frischkäse",
+   zub:"Kartoffeln je nach Größe 30-40 Minuten vorkochen. Schinkenwürfel und Zwiebel anbraten. Eier dazugeben und stocken lassen. Quark und Frischkäse als cremigen Dip dazu servieren."},
+  {n:"Protein-Toast-Frühstück",em:"🍞",kcal:350,p:30,kh:40,f:6,port:"1 Toast",
+   zut:"1 Möhre · 1 Frühlingszwiebel · 200g körniger Frischkäse · 30g Kräuterfrischkäse light · 5g Honig · 1 TL Curry · Salz, Pfeffer · 6 Scheiben Hähnchenaufschnitt · Salat · Gurke · 3 Scheiben Vollkorntoast",
+   zub:"Möhre und Frühlingszwiebel kleinschneiden. Mit Frischkäse, Kräuterfrischkäse, Honig, Curry, Salz und Pfeffer zu einem Dip vermengen. Toast damit bestreichen, mit Hähnchenaufschnitt, Salat und Gurke belegen."},
+  {n:"KAYserschmarrn",em:"🥞",kcal:694,p:51,kh:75,f:23,port:"1 Portion",
+   zut:"2 TL Backpulver · 1-2 Scoops Süßungsmittel oder Honig · 10g Rosinen · 80g Dinkelmehl · 160g Skyr · 3 Eier · Erythrit nach Geschmack",
+   zub:"Eier trennen. Eigelb mit Skyr, Dinkelmehl, Backpulver, Rosinen und Süßungsmittel vermengen. Eischnee steif schlagen und unterheben. In Pfanne bei mittlerer Hitze backen, wenden und in Stücke zerteilen. Mit Erythrit bestäuben."},
+  {n:"Süßkartoffel-Frischkäse-Bowl",em:"🍠",kcal:402,p:20,kh:44,f:12,port:"1 Portion (von 2)",
+   zut:"400g Süßkartoffeln · 200g körniger Frischkäse · ½ Avocado · 40g Hirtenkäse light · Petersilie · ½ rote Zwiebel · 1 Zehe Knoblauch · ½ Zitrone · Salz, Knoblauchpulver, Dill",
+   zub:"Süßkartoffeln bei 200 Grad Umluft rösten. Frischkäse mit Knoblauch, Zwiebel, Dill, Zitronensaft und Gewürzen mischen. Süßkartoffeln aufschneiden, Frischkäse reingeben, Avocado und Hirtenkäse drüber."},
+  {n:"Kartoffel-Brokkoli-Hirtenkäse",em:"🥦",kcal:629,p:48,kh:59,f:18,port:"1 Portion",
+   zut:"300g Kartoffeln · 300g Brokkoli · 1 TL Olivenöl · 150g körniger Frischkäse · 60g Hirtenkäse light · 1 EL Tomatenmark · 1 Zehe Knoblauch · Frische Petersilie · Salz, Pfeffer, Oregano",
+   zub:"Kartoffeln und Brokkoli mit Olivenöl und Gewürzen im Ofen rösten. Frischkäse mit Tomatenmark, Knoblauch und Gewürzen als Dip mischen. Alles anrichten und Hirtenkäse drüber bröckeln."},
+  {n:"Chili-Reis-Ei-Pfanne",em:"🌶️",kcal:745,p:37,kh:80,f:31,port:"1 Portion",
+   zut:"250g Fertig-Reis · 1 TL Chiliöl · 30g Hirtenkäse Light · 1 Zehe Knoblauch · 50g Cherrytomaten · 30g Peperoni · 3 Eier · Salz, Oregano",
+   zub:"Knoblauch in Chiliöl anbraten. Cherrytomaten und Peperoni dazu. Reis und Eier reinrühren und stocken lassen. Hirtenkäse drüber krümeln und würzen."},
+  {n:"Lotus-Frühstück-Prep",em:"🍪",kcal:612,p:56,kh:64,f:13,port:"1 Portion (von 3)",
+   zut:"50g Whey Protein Vanille · 150g Haferflocken · 400ml Milch · 500g Skyr · 1 EL Lotus Bischoff Creme · 5 Lotus Kekse · 2 Becher Protein Pudding Caramel · Süßungsmittel",
+   zub:"Haferflocken mit Milch einweichen. Skyr und Whey Protein einrühren. Auf 3 Gläser verteilen. Protein-Pudding drüber geben. Mit Lotus Creme, zerbröckelten Lotus Keksen und Süßungsmittel toppen."},
+  {n:"Teriyaki-Hack-Reis",em:"🍱",kcal:882,p:58,kh:130,f:11,port:"1 Portion",
+   zut:"150g Reis · 200g Rinderhack fettreduziert · 2 Lauchzwiebeln · 3-4 EL Teriyaki Sauce · 1 TL Honig · Sesam · Chilimayo · Salz, Tabasko",
+   zub:"Reis kochen. Hack anbraten, mit Teriyaki-Sauce und Honig karamellisieren. Lauchzwiebeln untermischen. Über dem Reis anrichten, mit Sesam bestreuen und mit Chilimayo toppen."},
+  {n:"Mexikanischer Kartoffel-Auflauf",em:"🌮",kcal:590,p:34,kh:50,f:27,port:"1 Portion (von 4)",
+   zut:"1kg Kartoffeln · 1 Zwiebel · 250g Cocktailtomaten · 100g Mexico Mix · 1 Paprika · 400g Rinderhackfleisch · 100ml Apfelsaft · 1 EL Olivenöl · 1 EL Tomatenmark · 1 EL BBQ Sauce · 1 Zehe Knoblauch · Paprikapulver, Salz, Pfeffer, Oregano, Thymian · 80g Cheddar · 80g Creme Leicht · Petersilie · 1 Limette",
+   zub:"Alles in einer Auflaufform mischen. 40-50 Minuten in den Ofen schieben. Zwischendurch die Kartoffeln durchmengen. Mit Cheddar und Creme Leicht überbacken. Mit Petersilie und Limette servieren."},
+  {n:"Griechische Genießerplatte",em:"🇬🇷",kcal:525,p:51,kh:52,f:11,port:"1 Portion",
+   zut:"300g Kartoffeln · 1 TL Olivenöl · ½ Zitrone · 1 Zehe Knoblauch · 2 EL Joghurt 0,1% · 15g Eisbergsalat · 70g gelbe Paprika · 70g Tomaten · 10g rote Zwiebel · 150g Hähnchenbrust · 30g Hirtenkäse light · Salz, Pfeffer, Oregano, Dill",
+   zub:"Kartoffeln mit Olivenöl und Oregano im Ofen backen. Hähnchen mit Gewürzen grillen. Joghurt-Knoblauch-Dip mit Zitronensaft anrühren. Plate mit Kartoffeln, Hähnchen, Gemüse, Hirtenkäse und Dip anrichten."},
+  {n:"Protein-Käsekuchen",em:"🍰",kcal:292,p:40,kh:16,f:7,port:"1 Portion (ganzer Kuchen)",
+   zut:"300g Skyr · 1 Ei · Süßungsmittel nach Geschmack · 1 TL Backpulver · 2 TL Puddingpulver Vanille",
+   zub:"Alle Zutaten gut miteinander vermixen bis eine glatte Masse entsteht. In eine kleine Backform füllen. Bei 180 Grad Umluft für 30-40 Minuten backen bis der Kuchen fest ist."},
+  {n:"Hähnchen-Schnitzel mit Brokkoli",em:"🥦",kcal:455,p:36,kh:45,f:12,port:"1 Portion",
+   zut:"100g Hähnchenbrust · 200g Kartoffeln · 10g Cornflakes · 50g Hollandaise light · 150g Brokkoli · 20g Ei · 1 TL Öl · Salz, Pfeffer, Paprikapulver, Gemüsebrühe",
+   zub:"Hähnchen plattieren, in Ei und zerkleinerten Cornflakes wenden. Mit Brokkoli und Kartoffeln auf ein Blech. 25-30 Minuten bei 190 Grad Umluft. Mit Hollandaise light servieren."},
+  {n:"Gurken-Skyr-Bowl",em:"🥒",kcal:485,p:30,kh:71,f:6,port:"1 Portion",
+   zut:"½ Gurke · 400g Kartoffeln · 200g Skyr · 30g rote Zwiebel · 1 TL Olivenöl · ½ Zitrone · Salz, Schnittlauch, Dill, Pfeffer, Knoblauchgewürz",
+   zub:"Kartoffeln kochen. Skyr-Dip mit Gurke, Zwiebel, Zitronensaft, Schnittlauch, Dill und Gewürzen anrühren. Kartoffeln mit dem Skyr-Dip servieren."},
+  {n:"Hähnchen-Sommerrollen",em:"🌿",kcal:502,p:41,kh:61,f:8,port:"1 Portion (4 Rollen)",
+   zut:"150g Hähnchenbrust · 2 EL Majo Light · 1 EL Chilisauce · 4 Stück Reispapier · 30g Romana Salat · ½ Gurke · 1 Möhre · 1 Frühlingszwiebel · Sesam",
+   zub:"Hähnchen garen und in Streifen schneiden. Reispapier kurz in warmem Wasser einweichen. Mit Hähnchen, Salat, Gurke, Möhre und Frühlingszwiebel füllen, fest einrollen. Mit Mayo-Chili-Dip und Sesam servieren."},
+  {n:"Crispy Chicken mit Kartoffeln",em:"🍗",kcal:707,p:46,kh:92,f:16,port:"1 Portion",
+   zut:"300g Kartoffeln · 150g Hähnchenbrust · 100ml Hollandaise light · 1 TL Sambal Oelek · 1 TL Olivenöl · 50g Cornflakes · Salz, Paprikapulver",
+   zub:"Kartoffeln und Hähnchenbrust würzen, 20 Minuten bei 200 Grad Umluft. Danach Hollandaise mit Sambal Oelek mischen, über das Hähnchen geben und Cornflakes drüber streuen. Nochmal 5-10 Minuten bis knusprig."},
+  {n:"Protein-Croissant-Kuchen",em:"🥐",kcal:562,p:40,kh:51,f:22,port:"1 Portion (¾ Backform)",
+   zut:"80g Dinkelmehl · 160g Magerquark · 20g Mandelsplitter · 3 Eier · 10g Honig · Süßungsmittel · Erythrit · 10g Backpulver",
+   zub:"Alle Zutaten miteinander vermengen bis eine glatte Masse entsteht. In eine Springform füllen, Mandelsplitter drüber streuen. 20-25 Minuten bei 180 Grad Umluft backen."},
+  {n:"Protein-Marmorkuchen",em:"🎂",kcal:973,p:69,kh:129,f:18,port:"1 ganzer Kuchen",
+   zut:"200g Protein Pudding Vanille · 200g Protein Pudding Schoko · 150g Dinkelgrieß · 1 Päckchen Backpulver · 2 Eier · 50g Erythrit",
+   zub:"Beide Pudding-Sorten separat mit je Hälfte des Grießes, Backpulvers, Eiern und Erythrit vermengen. Abwechselnd in eine Kastenform füllen und mit einer Gabel marmorieren. 30-40 Min. bei 180 Grad (Ober-/Unterhitze)."},
+  {n:"Big Mac Pasta-Salat",em:"🍝",kcal:690,p:51,kh:76,f:20,port:"1 Portion (von 3)",
+   zut:"300g Nudeln · 50g Parmesan · 200g Eisbergsalat · 400g mageres Rinderhack · 50g Cheddar · ½ rote Zwiebel · 1 TL Öl · 1 EL Mayo Light · 1 TL Senf · 1 EL Ketchup · 2 EL Joghurt · Schwapp Gurkenwasser · Salz, Pfeffer, Paprikapulver, Knoblauchgewürz",
+   zub:"Nudeln al dente kochen, abgießen. Parmesan, Öl und Gewürze dazu und auf Backblech bei 180 Grad 15-20 Min. knusprig backen. Big Mac-Sauce aus Mayo, Senf, Ketchup, Joghurt und Gurkenwasser. Hack anbraten, alles mit Salat und Cheddar anrichten."},
+  {n:"Caesar-Wrap",em:"🌯",kcal:430,p:52,kh:29,f:11,port:"1 Wrap (von 2)",
+   zut:"1 Brötchen · 300g Hähnchen · 150g Joghurt · 50g Miracle Whip light · ½ TL Senf · Spritzer Zitronensaft · 1 Zehe Knoblauch · 2 EL Worcestershire Sauce · 50g Parmesan · 8 große Blätter Eisbergsalat · 150g Cocktailtomaten",
+   zub:"Hähnchen garen und klein schneiden. Caesar-Sauce aus Joghurt, Miracle Whip, Senf, Zitronensaft, Knoblauch und Worcestershire Sauce mischen. Hähnchen und Sauce mit Salat, Parmesan und Tomaten in Wraps füllen."},
+  {n:"Pizza-Pfannkuchen",em:"🍕",kcal:644,p:36,kh:67,f:23,port:"1 Portion",
+   zut:"100g gemahlene Haferflocken · 75ml warmes Wasser · 125ml Milch · 5g Backpulver · 1 Ei · Salz & Pfeffer · Käse/Schinken/Champignons nach Wahl",
+   zub:"Haferflocken, Wasser, Milch, Backpulver, Ei und Gewürze zu einem glatten Teig verrühren. In der Pfanne wie Pfannkuchen backen. Mit Käse, Schinken und Champignons als Belag servieren."},
+  {n:"Low-Calorie Hähnchen-Wrap",em:"🥗",kcal:231,p:43,kh:4,f:5,port:"1 Portion",
+   zut:"150g Hähnchenbrust · ¼ Zwiebel · 50g Cocktailtomaten · 30g griechischer Joghurt · 1 Zehe Knoblauch · Spritzer Zitronensaft · 2 große Eisbergsalatblätter · 5g Parmesan · 10g magere Schinkenwürfel",
+   zub:"Hähnchen mit Zwiebel und Schinkenwürfeln anbraten. Joghurt-Knoblauch-Sauce mit Zitronensaft mischen. Hähnchen-Mischung in Salatblätter wickeln, mit Tomaten, Parmesan und Sauce servieren."}
+];
 // ═══════════════ DATA ═══════════════
 const R={
 f:[
@@ -1215,12 +1338,17 @@ ${wd.map(dt=>{let dow=pD(dt).getDay(),dm=SLOTS.map(sl=>({key:sl.key,col:sl.col,m
 ${list.length===0?`<div style="text-align:center;padding:30px;color:#475569;font-size:12px">Erst Mahlzeiten auswählen,<br>dann wird die Liste generiert.</div>`:""}
 ${Object.entries(cats).sort().map(([cat,items])=>`<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:#94a3b8;margin-bottom:4px">${cat}</div>${items.map(it=>`<div class="shop-item"><span>${it.name}</span><span style="font-weight:700;color:#6366f1">${Math.round(it.amt*10)/10}${it.unit?" "+it.unit:""}</span></div>`).join("")}</div>`).join("")}`;
   }else{
-    let gkToggle=`<div style="display:flex;gap:4px;margin-bottom:10px"><button class="shop-tab ${state.gkView==='plan'?'active':''}" onclick="state.gkView='plan';render()">📋 90TC Ernährungsplan</button><button class="shop-tab ${state.gkView==='gk'?'active':''}" onclick="state.gkView='gk';state.gkSearch='';render()">📚 Goodbye Kilos (${GK_REZEPTE.length})</button></div>`;
+    let gkToggle=`<div style="display:flex;gap:4px;margin-bottom:8px"><button style="flex:1;padding:7px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:10px;background:\${state.gkView==='plan'?'#6366f1':'#1e293b'};color:\${state.gkView==='plan'?'#fff':'#64748b'}" onclick="state.gkView='plan';render()">📋 90TC Plan</button><button style="flex:1;padding:7px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:10px;background:\${state.gkView==='gk'?'#6366f1':'#1e293b'};color:\${state.gkView==='gk'?'#fff':'#64748b'}" onclick="state.gkView='gk';render()">📚 Goodbye Kilos (\${GK_REZEPTE.length})</button><button style="flex:1;padding:7px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:10px;background:\${state.gkView==='ss'?'#6366f1':'#1e293b'};color:\${state.gkView==='ss'?'#fff':'#64748b'}" onclick="state.gkView='ss';render()">🎬 YouTube (\${SS_REZEPTE.length})</button></div>`;
     if(state.gkView==='gk'){
       let filtered=state.gkSearch?GK_REZEPTE.filter(r=>r.n.toLowerCase().includes(state.gkSearch.toLowerCase())||r.zut.toLowerCase().includes(state.gkSearch.toLowerCase())):GK_REZEPTE;
       let searchBar=`<div style="margin-bottom:10px"><input type="text" placeholder="🔍 Rezept oder Zutat suchen..." value="${state.gkSearch}" oninput="state.gkSearch=this.value;render()" style="width:100%;box-sizing:border-box;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#e2e8f0;padding:8px 12px;font-size:13px;outline:none"></div>`;
       sub=gkToggle+searchBar+filtered.map(r=>`<div class="recipe-card"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:24px">${r.em}</span><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#e2e8f0">${r.n}</div><div style="font-size:9px;color:#94a3b8">${r.port}</div><div class="macros-sm"><span style="color:#e2e8f0;font-weight:700">${r.kcal}kcal</span> <span style="color:#f43f5e">P:${r.p}g</span> <span style="color:#f59e0b">F:${r.f}g</span> <span style="color:#a78bfa">KH:${r.kh}g</span></div></div></div><details style="margin-top:6px"><summary style="font-size:9px;color:#6ee7b7;cursor:pointer">📝 Zutaten & Zubereitung</summary><div style="font-size:9px;color:#94a3b8;margin-top:4px;padding:4px 0;border-top:1px solid #1e293b">${r.zut}</div><div style="font-size:9px;color:#6ee7b7;margin-top:6px">${r.zub}</div></details></div>`).join("");
-    }else{
+    }
+      if(state.gkView==='ss'){
+        let filtered=state.gkSearch?SS_REZEPTE.filter(r=>r.n.toLowerCase().includes(state.gkSearch.toLowerCase())||r.zut.toLowerCase().includes(state.gkSearch.toLowerCase())):SS_REZEPTE;
+        let searchBar=`<input type="text" placeholder="🔍 YouTube Rezepte durchsuchen..." value="${state.gkSearch||''}" oninput="state.gkSearch=this.value;render()" style="width:100%;padding:8px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#e2e8f0;font-size:12px;margin-bottom:8px;box-sizing:border-box">`;
+        sub=gkToggle+searchBar+filtered.map(r=>`<div class="recipe-card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="font-size:24px">${r.em}</div><div><div style="font-size:12px;font-weight:700">${r.n}</div><div style="font-size:9px;color:#64748b">${r.port}</div></div></div><div class="yazio-box"><div style="color:#e2e8f0;font-weight:700">${r.kcal}<span class="yz-label">kcal</span></div><div style="color:#f43f5e">${r.p}g<span class="yz-label">Eiweiß</span></div><div style="color:#f59e0b">${r.f}g<span class="yz-label">Fett</span></div><div style="color:#a78bfa">${r.kh}g<span class="yz-label">Kohlenh.</span></div></div><details style="margin-top:6px"><summary style="font-size:10px;color:#818cf8;cursor:pointer;user-select:none">📝 Zutaten & Zubereitung</summary><div style="margin-top:6px;font-size:10px;color:#94a3b8;margin-bottom:4px"><strong>Zutaten:</strong> ${r.zut}</div><div style="font-size:10px;color:#6ee7b7"><strong>Zubereitung:</strong> ${r.zub}</div></details></div>`).join('');
+      }else{
       sub=gkToggle+SLOTS.map(sl=>`<div style="font-size:14px;font-weight:700;color:${sl.col};margin-bottom:6px;${sl.key!=="f"?"margin-top:12px":""};">${sl.label} (${R[sl.key].length})</div>${R[sl.key].map(r=>`<div class="recipe-card"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:24px">${r.em}</span><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#e2e8f0">${r.n}</div><div class="macros-sm"><span style="color:#e2e8f0;font-weight:700">${r.k}kcal</span> <span style="color:#f43f5e">P:${r.p}g</span> <span style="color:#f59e0b">F:${r.f}g</span> <span style="color:#a78bfa">KH:${r.c}g</span></div></div></div><div style="font-size:9px;color:#94a3b8;margin-top:4px">${r.items.map(i=>i[0]+i[1]+" "+i[2]).join(" · ")}</div><div style="font-size:9px;color:#6ee7b7;margin-top:2px">👨‍🍳 ${r.prep}</div><div style="font-size:9px;color:#f59e0b;margin-top:1px">💡 ${r.tip}</div>${yazioBox(r)}${rLink(r.n)}</div>`).join("")}`).join("");
     }
   }
