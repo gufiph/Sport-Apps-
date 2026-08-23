@@ -1105,7 +1105,7 @@ function renderHome(wi,ct){
   let today=state.date;
   let dm=state.config?SLOTS.map(sl=>({...sl,meal:getMeal(today,sl.key)})):[];
   let hasAnyMeal=dm.some(s=>s.meal);
-  return \`<div style="padding-bottom:10px">
+  return `<div style="padding-bottom:10px">
 <div style="text-align:center;padding:14px 0 8px">
 <div style="font-size:2.2rem">🏊‍♀️💪</div>
 <div style="font-size:18px;font-weight:800;margin:4px 0">Sport Apps</div>
@@ -1124,37 +1124,37 @@ function renderHome(wi,ct){
 </div>
 </div>
 
-\${state.config?\`<div class="card" style="margin-bottom:8px;border:1.5px solid #6366f144">
-<div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 HEUTE · \${new Date().toLocaleDateString('de',{weekday:'short',day:'numeric',month:'short'})}</div>
-\${hasAnyMeal?\`<div style="display:flex;gap:4px;flex-wrap:wrap">\${dm.filter(s=>s.meal).map(s=>\`<div style="flex:1;min-width:80px;background:#0f172a;border-radius:8px;padding:6px;cursor:pointer" onclick="state.page='essen';state.eView='tag';render()"><div style="font-size:16px">\${s.meal.em}</div><div style="font-size:9px;color:#64748b">\${s.label}</div><div style="font-size:10px;font-weight:600;margin-top:1px">\${s.meal.n.length>14?s.meal.n.slice(0,14)+'…':s.meal.n}</div></div>\`).join('')}</div>\`:\`<div style="text-align:center;padding:12px;color:#475569;font-size:11px" onclick="state.page='essen';state.eView='tag';render()">Noch keine Mahlzeiten geplant<br><span style="color:#6366f1;font-size:12px;font-weight:600">→ Zur Ernährung</span></div>\`}
+${state.config?`<div class="card" style="margin-bottom:8px;border:1.5px solid #6366f144">
+<div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📋 HEUTE · ${new Date().toLocaleDateString('de',{weekday:'short',day:'numeric',month:'short'})}</div>
+${hasAnyMeal?`<div style="display:flex;gap:4px;flex-wrap:wrap">${dm.filter(s=>s.meal).map(s=>`<div style="flex:1;min-width:80px;background:#0f172a;border-radius:8px;padding:6px;cursor:pointer" onclick="state.page='essen';state.eView='tag';render()"><div style="font-size:16px">${s.meal.em}</div><div style="font-size:9px;color:#64748b">${s.label}</div><div style="font-size:10px;font-weight:600;margin-top:1px">${s.meal.n.length>14?s.meal.n.slice(0,14)+'…':s.meal.n}</div></div>`).join('')}</div>`:`<div style="text-align:center;padding:12px;color:#475569;font-size:11px" onclick="state.page='essen';state.eView='tag';render()">Noch keine Mahlzeiten geplant<br><span style="color:#6366f1;font-size:12px;font-weight:600">→ Zur Ernährung</span></div>`}
 </div>
 <div class="card" style="margin-bottom:8px">
-<div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📊 WOCHE \${wi.week} STATUS</div>
+<div style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📊 WOCHE ${wi.week} STATUS</div>
 <div style="display:flex;gap:6px;justify-content:space-around;text-align:center">
-<div><div style="font-size:15px;font-weight:800;color:#6366f1">\${wi.week}</div><div style="font-size:9px;color:#64748b">Woche</div></div>
-<div><div style="font-size:15px;font-weight:800;color:#f59e0b">\${getDaysLeft()}</div><div style="font-size:9px;color:#64748b">Tage noch</div></div>
-<div><div style="font-size:15px;font-weight:800;color:#10b981">\${getStreak()}</div><div style="font-size:9px;color:#64748b">🔥 Streak</div></div>
-<div><div style="font-size:15px;font-weight:800;color:#f43f5e">\${ct.kcal}</div><div style="font-size:9px;color:#64748b">kcal Ziel</div></div>
+<div><div style="font-size:15px;font-weight:800;color:#6366f1">${wi.week}</div><div style="font-size:9px;color:#64748b">Woche</div></div>
+<div><div style="font-size:15px;font-weight:800;color:#f59e0b">${getDaysLeft()}</div><div style="font-size:9px;color:#64748b">Tage noch</div></div>
+<div><div style="font-size:15px;font-weight:800;color:#10b981">${getStreak()}</div><div style="font-size:9px;color:#64748b">🔥 Streak</div></div>
+<div><div style="font-size:15px;font-weight:800;color:#f43f5e">${ct.kcal}</div><div style="font-size:9px;color:#64748b">kcal Ziel</div></div>
 </div>
-</div>\`:\`<div class="card" style="margin-bottom:8px;text-align:center;padding:16px;border:1.5px dashed #334155">
+</div>`:`<div class="card" style="margin-bottom:8px;text-align:center;padding:16px;border:1.5px dashed #334155">
 <div style="font-size:28px;margin-bottom:6px">⚙️</div>
 <div style="font-size:12px;color:#e2e8f0;font-weight:600;margin-bottom:4px">90 Tage Challenge einrichten</div>
 <div style="font-size:10px;color:#64748b;margin-bottom:10px">Starte deine persönliche Challenge</div>
 <button class="btn-primary" style="width:auto;padding:10px 20px;font-size:12px" onclick="state.page='cfg';render()">Jetzt einrichten →</button>
-</div>\`}
+</div>`}
 
 <div class="card" style="cursor:pointer;border:1.5px solid #10b98144" onclick="state.page='essen';state.eView='alle';render()">
 <div style="display:flex;align-items:center;gap:10px">
 <div style="font-size:2rem;background:#064e3b;border-radius:10px;width:50px;height:50px;display:flex;align-items:center;justify-content:center">📚</div>
 <div>
 <div style="font-size:13px;font-weight:700;color:#10b981">Goodbye Kilos Rezepte</div>
-<div style="font-size:10px;color:#64748b">\${GK_REZEPTE.length} proteinreiche Rezepte</div>
+<div style="font-size:10px;color:#64748b">${GK_REZEPTE.length} proteinreiche Rezepte</div>
 <div style="font-size:9px;color:#10b981aa;margin-top:2px">Tippe um zu kochen</div>
 </div>
 <div style="margin-left:auto;color:#10b981;font-size:20px">→</div>
 </div>
 </div>
-</div>\`;
+</div>`;
 }
 
 function renderSetup(){
