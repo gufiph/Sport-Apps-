@@ -1085,7 +1085,7 @@ function render(){
   }
   app.style.display="block";btApp.style.display="none";
   document.getElementById("v2-tabs").style.display="flex";
-  if(!state.config){app.innerHTML=renderSetup();return;}
+  if(!state.config && state.page!=="train"){app.innerHTML=renderSetup();return;}
   let wi=getWI(),ct=getCT();
   let content="";
   if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
