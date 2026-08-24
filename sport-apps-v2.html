@@ -287,8 +287,8 @@ body{font-family:'Nunito',-apple-system,BlinkMacSystemFont,sans-serif;background
 
 <!-- Bandscheiben Training App (Beata) -->
 <div id="bt-app">
+  <div id="tr-bg" class="tr-bg" style="background:linear-gradient(160deg,#0f1923,#1a2a3e)"></div>
   <div class="tr-c">
-    <div id="tr-bg" class="tr-bg" style="background:linear-gradient(160deg,#0f1923,#1a2a3e)"></div>
     <!-- v0: Home -->
 <div class="home-v" id="v0">
   <div style="font-size:2.5rem">🏊‍♀️💪</div>
@@ -1076,29 +1076,31 @@ var D={"aqua":{"icon":"🏊‍♀️","c":"#2e8bc0","c2":"#1a6fa0","bg":"linear-
 function render(){
   let app=document.getElementById("app");
   let btApp=document.getElementById("bt-app");
-  // Bandscheiben tab: show Beata training views
   if(state.page==="bandscheiben"){
     app.style.display="none";btApp.style.display="block";
-    // Show bottom tabs over bt-app
     document.getElementById("v2-tabs").style.display="flex";
     return;
   }
   app.style.display="block";btApp.style.display="none";
   document.getElementById("v2-tabs").style.display="flex";
-  if(!state.config && state.page!=="train"){app.innerHTML=renderSetup();return;}
-  let wi=getWI(),ct=getCT();
-  let content="";
-  if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
-  if(state.page==="home")content=renderHome(wi,ct);
-  else if(state.page==="train")content=renderTrain(wi);
-  else if(state.page==="essen")content=renderEssen();
-  else if(state.page==="cfg")content=renderCfg();
-  let pageTitle="";
-  if(state.page==="home")pageTitle="Sport Apps";
-  else if(state.page==="train")pageTitle="Training";
-  else if(state.page==="essen")pageTitle="Essen & Rezepte";
-  else if(state.page==="cfg")pageTitle="Setup";
-  app.innerHTML=`<div class="hdr"><span class="logo" style="font-size:13px">🏠 ${pageTitle}</span><span style="font-size:9px;color:#64748b">${state.config?("W"+wi.week+" · "+ct.kcal+"kcal"):""}</span></div><div class="main">${content}</div>`;
+  try{
+    if(!state.config && state.page!=="train"){app.innerHTML=renderSetup();return;}
+    let wi=getWI(),ct=getCT();
+    let content="";
+    if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
+    if(state.page==="home")content=renderHome(wi,ct);
+    else if(state.page==="train")content=renderTrain(wi);
+    else if(state.page==="essen")content=renderEssen();
+    else if(state.page==="cfg")content=renderCfg();
+    let pageTitle="";
+    if(state.page==="home")pageTitle="Sport Apps";
+    else if(state.page==="train")pageTitle="Training";
+    else if(state.page==="essen")pageTitle="Essen & Rezepte";
+    else if(state.page==="cfg")pageTitle="Setup";
+    app.innerHTML=`<div class="hdr"><span class="logo" style="font-size:13px">🏠 ${pageTitle}</span><span style="font-size:9px;color:#64748b">${state.config?("W"+wi.week+" · "+ct.kcal+"kcal"):""}</span></div><div class="main">${content}</div>`;
+  }catch(e){
+    app.innerHTML=`<div style="padding:20px;color:#f43f5e;font-size:13px"><b>Fehler:</b><br>${e.message||e}<br><small>${e.stack||""}</small></div>`;
+  }
 }
 
 function renderHome(wi,ct){
