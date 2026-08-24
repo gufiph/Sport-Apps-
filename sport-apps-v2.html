@@ -1308,7 +1308,7 @@ function renderTrain(wi){
 
 <!-- EXERCISES -->
 ${plan.mov.map((mov,idx)=>{
-  let n=sets[idx],ex=exs[idx],opts=EX[mov]||[mov];
+  let n=sets[idx],ex=exs[idx]||{m:mov,n:(EX[mov]||[mov])[0],s:[],band:""},opts=EX[mov]||[mov];
   let bandCol=BANDS.find(b=>b.n===(ex.band||"Kein"));
   // Last week's data for progression comparison
   let prevWk="w"+(wi.week>1?wi.week-1:1)+"d"+state.selDay;
