@@ -943,7 +943,7 @@ const DS=["So","Mo","Di","Mi","Do","Fr","Sa"];
 
 
 
-let state={page:"home",config:null,date:new Date().toISOString().slice(0,10),logs:{},workouts:{},meals:{},measures:{},selDay:0,eView:"tag",shopMode:"woche",pickSlot:null,pickDate:null,gkView:"plan",gkSearch:"",allSearch:''};
+let state={page:"home",config:null,date:new Date().toISOString().slice(0,10),logs:{},workouts:{},meals:{},measures:{},selDay:0,selWeek:null,eView:"tag",shopMode:"woche",pickSlot:null,pickDate:null,gkView:"plan",gkSearch:"",allSearch:''};
 
 // ═══════════════ STORAGE ═══════════════
 async function load(){
@@ -1086,6 +1086,7 @@ function render(){
   try{
     if(!state.config && state.page!=="train"){app.innerHTML=renderSetup();return;}
     let wi=getWI(),ct=getCT();
+    if(state.page==="train"&&state.selWeek!==null){let w=Math.max(1,Math.min(12,state.selWeek));wi={...wi,week:w,dl:w===7};}
     let content="";
     if(state.pickSlot!==null){app.innerHTML=renderPicker();return;}
     if(state.page==="home")content=renderHome(wi,ct);
@@ -1287,7 +1288,13 @@ function renderTrain(wi){
   let COOLDOWNS=["Indoor Bike locker 5 Min","Dehnung Oberschenkel vorne","Dehnung Oberschenkel hinten","Dehnung Brust","Dehnung Schultern","Dehnung Rücken","Dehnung Waden","Child's Pose","Foam Rolling","Dehnung Hüftbeuger","Dehnung Nacken","Tiefe Hocke halten"];
   let wuDone=wo.warmup||[];
   let cdDone=wo.cooldown||[];
-  return `<div style="font-size:12px;font-weight:700;color:#94a3b8;text-align:center;margin-bottom:8px">Woche ${wi.week}/12${wi.dl?" — DELOAD 🔄":""}</div>
+  let curWeek=getWI().week;
+  let isCurrentWeek=(state.selWeek===null||state.selWeek===curWeek);
+  return `<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
+<button onclick="state.selWeek=Math.max(1,(state.selWeek===null?${curWeek}:state.selWeek)-1);render()" style="background:#1e293b;border:1px solid #334155;border-radius:8px;color:#94a3b8;font-size:16px;width:32px;height:32px;cursor:pointer;line-height:1">◀</button>
+<div style="text-align:center"><div style="font-size:12px;font-weight:700;color:#94a3b8">Woche ${wi.week}/12${wi.dl?" — DELOAD 🔄":""}</div>${isCurrentWeek?"":"<button onclick=\"state.selWeek=null;render()\" style=\"font-size:9px;padding:2px 6px;border-radius:4px;border:none;background:#0ea5e9;color:#fff;cursor:pointer;margin-top:2px\">Aktuelle Woche</button>"}</div>
+<button onclick="state.selWeek=Math.min(12,(state.selWeek===null?${curWeek}:state.selWeek)+1);render()" style="background:#1e293b;border:1px solid #334155;border-radius:8px;color:#94a3b8;font-size:16px;width:32px;height:32px;cursor:pointer;line-height:1">▶</button>
+</div>
 <div style="display:flex;gap:4px;margin-bottom:12px">${PD.map((d,i)=>`<button class="day-tab ${state.selDay===i?"active":""}" style="--c:${d.col}" onclick="state.selDay=${i};render()">${d.sh}</button>`).join("")}</div>
 <div style="font-size:16px;font-weight:800;color:${plan.col};margin-bottom:4px">${plan.name}</div>
 
